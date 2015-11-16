@@ -1,0 +1,127 @@
+html,
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	width: 1024px;
+	margin: 0 auto;
+}
+
+a {
+	outline: none;
+	text-decoration: none;
+	color: inherit;
+}
+
+a:hover {
+	color: inherit;
+}
+
+fieldset {
+	border: 1px solid white;
+}
+
+label {
+	display: block;
+	margin-bottom: 3px;
+}
+
+input {
+	border: none;
+	background-color: #eee;
+	height: 40px;
+	font-size: inherit;
+	padding: 0 5px 0 5px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+form .field {
+	margin-bottom: 10px;
+}
+
+#wrapper {
+	width: 1000px;
+}
+
+#header {
+	width: 100%;
+	height: 60px;
+	color: #92A5AE;
+	/*position: fixed;*/
+	box-sizing: border-box;
+	clear: both;
+}
+
+#logo {
+	float: left;
+	background-color: #333c47;
+	width: 25%;
+}
+#logo img{
+	display: block;
+	width: 230px;
+	height: 59px;
+}
+
+#header .breadcrumbs {
+	float: left;
+	border-bottom: 1px solid #EEE;
+	font-size: 19px;
+    line-height: 58px;
+    font-weight: normal;
+    color: #4c4e54;
+}
+
+/* 
+	Sidebar with 230 px width
+	icons in front of modules
+	submenu has no icons
+
+*/
+#menu {
+	/*width: 230px;*/
+	width: 25%;
+	float: left;
+    min-height: 100%;
+    background-color: #2b333d;
+	color: #9aa4af;
+	box-sizing: border-box;
+}
+#menu ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#menu li a {
+	display: block;
+	padding: 7px 15px;
+    font-size: 15px;
+    line-height: 24px;
+    color: #c5d0de;
+    text-decoration: none;
+    padding-left: 22px;
+    font-weight: normal;
+	height: 38px;
+}
+
+#menu li a.active,
+#menu li a:hover {
+	background-color: #24272d;
+}
+#menu li a.active {
+	color: white;
+}
+
+#content {
+	box-sizing: border-box;
+	float: left;
+	padding: 10px;
+	background-color: #f1f4f8;
+	width: 75%;
+	min-height: 100%;
+}
+
+#footer {
+	clear: both;
+}
+
