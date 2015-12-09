@@ -112,6 +112,7 @@ class Table
 	{
 		$str = '';
 		
+		// cell contents
 		foreach ( $this->getCols() as $col )
 		{
 			if ( isset($row[$col]) )

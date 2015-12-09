@@ -24,7 +24,7 @@ class TableController extends Controller
 	/**
 	 * Index function
 	 */
-	public function index()
+	public function getIndex()
 	{	
 		// if table not found
 		if ( ! $table = Uri::segment(2) ) {
@@ -47,7 +47,7 @@ class TableController extends Controller
 	 * Create a new record
 	 *
 	 */
-	public function create()
+	public function getCreate()
 	{
 		// get table config
 		$tableConfig = Config::table(Uri::segment(2));
@@ -72,18 +72,16 @@ class TableController extends Controller
 		return redirect('table/edit/'. Uri::segment(2) .'/'. $id);
 	}
 	
-	public function edit()
+	public function getEdit()
 	{
-		$tableName = Uri::segment(2);
-		$recordId  = Uri::segment(3);
-		
 		// get table config
-		if ( ! $tableConfig = Config::table($tableName) )
+		if ( ! $tableConfig = Config::table($this->table) )
 		{
 			dd('Table not found');
 		}
 		
-		if ( ! $record = DB::fetch('SELECT * FROM `'. $tableName .'` WHERE id = ?', array($recordId)) )
+		// get the record
+		if ( ! $record = DB::fetch('SELECT * FROM `'. $this->table .'` WHERE id = ?', array($this->recordId)) )
 		{
 			dd('Record not found');
 		}
@@ -91,11 +89,12 @@ class TableController extends Controller
 		// create the form
 		$form = Form::make($tableConfig['fields'], $record);
 		
+		$this->setHTMLTitle($tableConfig['title']);
+		
 		return $this->output('form', array(
 			'form'       => $form,
 			'table'      => $tableConfig,
 			'formAction' => url(Uri::segment(0) .'/'. Uri::segment(1) .'/'. $tableName .'/'. $recordId),
-			'HTMLTitle' => 'Edit'
 		));
 		
 	}
@@ -105,9 +104,14 @@ class TableController extends Controller
 		
 	}
 	
-	public function delete()
+	public function getDelete()
 	{
 		dd('go Delete some');
+	}
+	
+	public function getHTMLTitle()
+	{
+		return 'test';
 	}
 
 

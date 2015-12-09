@@ -17,7 +17,7 @@ class InputField extends Field
 	{
 		return '
 <div class="field">
-	<label for="'. $this->name .'">'. $this->label .'</label>
+	<label for="'. $this->name .'">'. $this->label . ($this->required ? '*' : '') .'</label>
 	<input type="'. $this->type .'" id="'. $this->name .'" name="'. $this->name .'" value="'. $this->value .'" placeholder="'. $this->placeholder .'" maxlength="'. $this->maxlength .'" />
 </div>';
 	}

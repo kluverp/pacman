@@ -64,3 +64,18 @@ float: left;
 	color: inherit;
 }
 
+/**
+ * Forms
+ */
+.field  label:first-child {
+	display: inline-block;
+	width: 150px;
+}
+
+input[type="text"],
+select,
+textarea {
+	width: 150px;
+}
+ 
+

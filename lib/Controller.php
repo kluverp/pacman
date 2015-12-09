@@ -3,26 +3,46 @@
 class Controller
 {
 	protected $HTMLTitle = '';
-	protected $layout = 'default';
-	protected $template = '';
-	protected $styles = array();
-	protected $scripts = array();
+	protected $layout    = 'default';
+	protected $template  = '';
+	protected $styles    = array();
+	protected $scripts   = array();
+	protected $data      = array();
 	
+	/**
+	 * Returns page HTML Title
+	 *
+	 * @return string
+	 */
 	protected function getHTMLTitle()
 	{
 		return $this->HTMLTitle;
 	}
 	
+	/**
+	 * Set page HTML Title
+	 *
+	 * @return string
+	 */
 	protected function setHTMLTitle($title = '')
 	{
 		return $this->HTMLTitle = $title;
 	}
 	
+	/**
+	 * Set layout template
+	 *
+	 * @return string
+	 */
 	protected function setLayout($layout = '')
 	{
 		return $this->layout = $layout;
 	}
 	
+	/**
+	 * Loads a 404 error page
+	 *
+	 */
 	public function show404()
 	{
 		$this->setHTMLTitle('Page not found');
@@ -45,9 +65,10 @@ class Controller
 		// set response code
 		http_response_code($response_code);
 		
+		// set template data
 		foreach ( $data as $k => $v )
 		{
-			$this->$k = $v;
+			$this->data[$k] = $v;
 		}
 				
 		include(view('_system/_layout.php'));

@@ -42,14 +42,8 @@ class Router
 	public function route()
 	{	
 		$controller = $this->getController();		
-		$method = $this->getMethod();
-		
-		// in case of post, route to post* method
-		if ( $_SERVER["REQUEST_METHOD"] === 'POST' )
-		{
-			$method = 'post'. ucfirst($method);
-		}
-		
+		$method     = $this->getMethod();
+				
 		// check for valid method
 		if ( method_exists( $controller, $method ) )
 		{
@@ -64,14 +58,28 @@ class Router
 		return $controller->show404();
 	}
 	
+	/**
+	 * Returnes the first uri segment as method name
+	 *
+	 * @return string
+	 */
 	public function getMethod()
 	{
+		$method = 'index';
+		$prefix = 'get';
+		
 		// if no method is given, default to the index method
-		if ( Uri::segment(1) === false) 
+		if ( Uri::segment(1) !== false) 
 		{
-			return 'index';
+			$method = strtolower(Str::ascii(Uri::segment(1)));
 		}
-						
-		return strtolower(Uri::segment(1));
+
+		// prefix each controller function with the request method
+		if ( in_array($_SERVER["REQUEST_METHOD"], array('GET', 'POST', 'PUT')) )
+		{
+			$prefix = strtolower($_SERVER["REQUEST_METHOD"]);
+		}
+		
+		return $prefix . ucfirst($method);
 	}
 }
