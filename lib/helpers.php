@@ -70,10 +70,23 @@ if ( ! function_exists('img'))
 	}
 }
 
+/**
+ * Format a full URL to given path or array. If 
+ * an array is give, the parts are imploded to a string
+ * 
+ * @param $path mixed Array or String 
+ *
+ * @return string
+ */
 if ( ! function_exists('url'))
 {
 	function url($path = '')
 	{
+		if ( is_array($path) )
+		{
+			$path = implode('/', $path);
+		}
+		
 		return BASE_PATH . $path;
 	}
 }

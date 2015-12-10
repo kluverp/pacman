@@ -2,11 +2,24 @@
 
 require_once(APP_PATH . 'controllers/BaseController.php');
 
+/**
+ * Dashboard page
+ *
+ * @class
+ */
 class DashboardController extends BaseController
 {
-	public function index()
+	/**
+	 * Loads the Dashboard page
+	 *
+	 * @return view
+	 */
+	public function getIndex()
 	{
+		// set page title
 		$this->setHTMLTitle('Dashboard');
-		$this->output('dashboard');
+		
+		// load the view
+		return $this->output('dashboard');
 	}
 }

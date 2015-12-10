@@ -46,7 +46,7 @@ class Table
 	public function render()
 	{	
 		return '
-<table border="1">
+<table class="list">
 	<tr>
 		'. $this->renderHeads() .'
 	</tr>
@@ -91,6 +91,11 @@ class Table
 		return ($this->config['rights']['create']) ? '<a href="'. url('table/create/'. $this->config['name']) .'">+ nieuw</a>' : '';
 	}
 	
+	/**
+	 * Renders the table rows 
+	 *
+	 * @return string
+	 */
 	private function renderRows()
 	{
 		$str = '';
@@ -115,7 +120,7 @@ class Table
 		// cell contents
 		foreach ( $this->getCols() as $col )
 		{
-			if ( isset($row[$col]) )
+			if ( array_key_exists($col, $row) )
 			{
 				$str .= sprintf('<td>%s</td>', $row[$col]);
 			}

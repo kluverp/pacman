@@ -40,7 +40,7 @@ class Config
 			return $instance->tables[$filename] = $config;
 		}
 		
-		throw new Exception('Config could not be found: "'. $file .'"');
+		throw new Exception('Missing table configuration for: "'. $file .'"');
 	}
 
 	public static function get($filename = '')

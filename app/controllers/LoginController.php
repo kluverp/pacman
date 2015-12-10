@@ -4,8 +4,12 @@ require_once(APP_PATH . 'controllers/BaseController.php');
 
 class LoginController extends BaseController
 {	
+	/**
+	 * Class Constructor
+	 */
 	public function __construct()
 	{
+		// set template layout and page title
 		$this->setLayout('empty');
 		$this->setHTMLTitle('Login');
 	}
@@ -15,7 +19,7 @@ class LoginController extends BaseController
 	 *
 	 * @return view
 	 */
-	public function index()
+	public function getIndex()
 	{	
 		$this->output('login');
 	}
@@ -35,7 +39,10 @@ class LoginController extends BaseController
 		return Auth::toLogin();
 	}
 	
-	public function logout()
+	/**
+	 * Logout the user
+	 */
+	public function getLogout()
 	{
 		return Auth::logout();
 	}

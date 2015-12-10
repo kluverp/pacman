@@ -5,9 +5,17 @@ require_once(ROOT_PATH . 'lib/Form/Form.php');
 
 class TableController extends Controller
 {
+	/**
+	 * The uri parts
+	 */
 	private $action = '';
 	private $table = '';
 	private $recordId = 0;
+	
+	/**
+	 * The table configuration file
+	 */
+	private $tableConfig = false;
 
 	/**
 	 * Class Constructor
@@ -19,6 +27,9 @@ class TableController extends Controller
 		$this->action   = Uri::segment(1);
 		$this->table    = Uri::segment(2);
 		$this->recordId = Uri::segment(3);
+		
+		// set table config
+		$this->tableConfig = Config::table($this->table);
 	}
 	
 	/**
@@ -26,19 +37,11 @@ class TableController extends Controller
 	 */
 	public function getIndex()
 	{	
-		// if table not found
-		if ( ! $table = Uri::segment(2) ) {
-			return $this->show404();
-		}
-
 		// get data
 		$data = DB::query('SELECT * FROM news_news');
-		$tableConfig = Config::table($table);
 				
 		// create table
 		$table = Table::make($tableConfig, $data);
-		
-		$this->setHTMLTitle($tableConfig['title']);
 		
 		return $this->output('table', array('table' => $table));
 	}
@@ -48,10 +51,7 @@ class TableController extends Controller
 	 *
 	 */
 	public function getCreate()
-	{
-		// get table config
-		$tableConfig = Config::table(Uri::segment(2));
-				
+	{		
 		// create the form
 		$form = Form::make($tableConfig['fields']);
 		
@@ -63,6 +63,11 @@ class TableController extends Controller
 		));
 	}
 	
+	/**
+	 * Handles the POST request of the create action
+	 *
+	 * @return redirect
+	 */
 	public function postCreate()
 	{
 		// store record
@@ -72,14 +77,13 @@ class TableController extends Controller
 		return redirect('table/edit/'. Uri::segment(2) .'/'. $id);
 	}
 	
+	/**
+	 * Returns the edit page for editing a record
+	 *
+	 * @return view
+	 */
 	public function getEdit()
 	{
-		// get table config
-		if ( ! $tableConfig = Config::table($this->table) )
-		{
-			dd('Table not found');
-		}
-		
 		// get the record
 		if ( ! $record = DB::fetch('SELECT * FROM `'. $this->table .'` WHERE id = ?', array($this->recordId)) )
 		{
@@ -87,17 +91,16 @@ class TableController extends Controller
 		}
 						
 		// create the form
-		$form = Form::make($tableConfig['fields'], $record);
-		
-		$this->setHTMLTitle($tableConfig['title']);
-		
+		$form = Form::make($this->tableConfig['fields'], $record);
+						
 		return $this->output('form', array(
 			'form'       => $form,
-			'table'      => $tableConfig,
-			'formAction' => url(Uri::segment(0) .'/'. Uri::segment(1) .'/'. $tableName .'/'. $recordId),
+			'table'      => $this->tableConfig,
+			'formAction' => url(array($this->action, $this->table, $record['id'])),
 		));
 		
 	}
+	
 	
 	public function postEdit()
 	{
@@ -109,9 +112,19 @@ class TableController extends Controller
 		dd('go Delete some');
 	}
 	
-	public function getHTMLTitle()
+	/**
+	 * Returns the HTML title for these pages
+	 *
+	 * @return mixed
+	 */
+	protected function getHTMLTitle()
 	{
-		return 'test';
+		if (isset($this->tableConfig['title']) )
+		{
+			return $this->tableConfig['title'];
+		}
+		
+		return false;
 	}
 
 

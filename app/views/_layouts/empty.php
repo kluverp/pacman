@@ -1,7 +1,3 @@
 <div id="wrapper">
-		
-	<div id="content">
-		<?php include $this->template; ?>
-	</div>
-	
+	<?php include $this->template; ?>
 </div>
