@@ -53,7 +53,7 @@ class Auth
 			// attempt login
 			self::attempt($user, $pass);
 		}
-		
+
 		// get logged in user
 		if ( ! self::user() )
 		{

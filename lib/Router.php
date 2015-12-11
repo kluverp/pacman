@@ -8,9 +8,9 @@ class Router
 	 * @return object
 	 */
 	public function getController()
-	{	
+	{
 		// check for controller name, or default to Base
-		if ( ! $controllerName = ucfirst(Uri::segment(0)) )
+		if ( ! $controllerName = ucfirst(Uri::segment(1)) )
 		{
 			$controllerName = 'Base';
 		}
@@ -18,7 +18,7 @@ class Router
 		// get path to controller class
 		$controllerName .= 'Controller';
 		$controllerPath = CONTROLLER_PATH . $controllerName . '.php';
-				
+
 		// check if the class exists
 		if ( ! is_file($controllerPath) )
 		{
@@ -27,7 +27,7 @@ class Router
 			
 			//throw new Exception('Controller not found');
 		}
-		
+
 		// require the Controller class
 		require_once($controllerPath);
 		
@@ -43,7 +43,7 @@ class Router
 	{	
 		$controller = $this->getController();		
 		$method     = $this->getMethod();
-				
+
 		// check for valid method
 		if ( method_exists( $controller, $method ) )
 		{
@@ -68,10 +68,10 @@ class Router
 		$method = 'index';
 		$prefix = 'get';
 		
-		// if no method is given, default to the index method
-		if ( Uri::segment(1) !== false) 
+		// if a method is found overwrite default
+		if ( Uri::segment(2) !== false) 
 		{
-			$method = strtolower(Str::ascii(Uri::segment(1)));
+			$method = strtolower(Str::ascii(Uri::segment(2)));
 		}
 
 		// prefix each controller function with the request method

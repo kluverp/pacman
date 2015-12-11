@@ -21,7 +21,7 @@ class LoginController extends BaseController
 	 */
 	public function getIndex()
 	{	
-		$this->output('login');
+		return $this->output('login');
 	}
 	
 	/**

@@ -13,7 +13,7 @@ class Uri
 	{
 		$this->parsedUrl = parse_url($url);		
 		$this->setSegments();
-				
+
 		/*
 		parse_url()
 		rawurldecode();
@@ -41,7 +41,7 @@ class Uri
 	{
 		$documentRoot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
 		$rootPath = str_replace('\\', '/', realpath(ROOT_PATH));
-	
+
 		$root = str_replace($documentRoot, '',  $rootPath);
 						
 		$foo = str_replace($root, '', trim($_SERVER['REQUEST_URI'], '/'));
@@ -56,13 +56,12 @@ class Uri
 	public static function getSegments()
 	{
 		return self::getInstance()->segments;
-		
 	}
 
 	public static function segment($n = 0)
 	{
 		$uri = self::getInstance();
-		
+
 		return isset($uri->segments[$n]) ? $uri->segments[$n] : false;
 	}
 }

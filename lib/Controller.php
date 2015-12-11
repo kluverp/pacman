@@ -70,7 +70,7 @@ class Controller
 		{
 			$this->data[$k] = $v;
 		}
-				
+
 		include(view('_system/_layout.php'));
 	}
 		
