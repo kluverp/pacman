@@ -2,7 +2,7 @@
 
 require_once(ROOT_PATH . 'lib/Form/Field.php');
 
-class TextField extends Field
+class TextareaField extends Field
 {	
 	protected $cols      = 30;
 	protected $rows      = 4;

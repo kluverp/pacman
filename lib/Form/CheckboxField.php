@@ -32,7 +32,7 @@ class CheckboxField extends SelectField
 				$checked = '';
 			}
 			
-			$str .= '<input type="checkbox" id="'. $id .'" name="'. $this->name .'" value="'. $option['value'] .'" '. $checked .'/><label for="'. $id .'">'. $option['label'] .'</label>';
+			$str .= '<label for="'. $id .'"><input type="checkbox" id="'. $id .'" name="'. $this->name .'" value="'. $option['value'] .'" '. $checked .'/>'. $option['label'] .'</label>';
 			$i++;
 		}
 		

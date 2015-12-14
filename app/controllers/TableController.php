@@ -6,14 +6,26 @@ require_once(ROOT_PATH . 'lib/Form/Form.php');
 class TableController extends Controller
 {
 	/**
-	 * The uri parts
+	 * The action URI part
+	 * @var string
 	 */
-	private $action = '';
-	private $table = '';
+	private $action   = '';
+	
+	/**
+	 * Table name URI part
+	 * @var string
+	 */
+	private $table    = '';
+	
+	/**
+	 * Record ID URI part
+	 * @var int
+	 */
 	private $recordId = 0;
 	
 	/**
 	 * The table configuration file
+	 * @var array
 	 */
 	private $tableConfig = false;
 
@@ -36,13 +48,14 @@ class TableController extends Controller
 	 * Index function
 	 */
 	public function getIndex()
-	{	
+	{
 		// get data
 		$data = DB::query('SELECT * FROM news_news');
-				
+
 		// create table
-		$table = Table::make($tableConfig, $data);
+		$table = Table::make($this->tableConfig, $data);
 		
+		// output the view
 		return $this->output('table', array('table' => $table));
 	}
 

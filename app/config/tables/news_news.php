@@ -33,13 +33,13 @@ return [
 		],
 		'fields' => [
 			'title' => [
-				'type' 			=> 'input',
+				'type' 			=> 'text',
 				'label' 		=> 'Titel',
 				'placeholder' 	=> 'Titel',
 				
 			],
 			'content' => [
-				'type' 			=> 'input',
+				'type' 			=> 'text',
 				'label' 		=> 'Inhoud',
 				'placeholder' 	=> 'Inhoud'
 			],

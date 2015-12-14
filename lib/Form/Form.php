@@ -1,7 +1,7 @@
 <?php
 
 require_once(ROOT_PATH . 'lib/Form/InputField.php');
-require_once(ROOT_PATH . 'lib/Form/TextField.php');
+require_once(ROOT_PATH . 'lib/Form/TextareaField.php');
 require_once(ROOT_PATH . 'lib/Form/RadioField.php');
 require_once(ROOT_PATH . 'lib/Form/CheckboxField.php');
 
@@ -26,13 +26,15 @@ class Form {
 	{
 		foreach ( $this->config as $fieldName => $fieldConfig )
 		{
-			switch($fieldConfig['type'])
+			$fieldType = isset($fieldConfig['type']) ? $fieldConfig['type'] : false;
+			
+			switch($fieldType)
 			{
-				case 'input':
+				case 'text':
 					$this->addField(new InputField($fieldName, $fieldConfig));
 					break;
-				case 'text':
-					$this->addField(new TextField($fieldName, $fieldConfig));
+				case 'textarea':
+					$this->addField(new TextareaField($fieldName, $fieldConfig));
 					break;
 				case 'select':
 					$this->addField(new SelectField($fieldName, $fieldConfig));

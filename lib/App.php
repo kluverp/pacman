@@ -5,17 +5,28 @@ require_once(ROOT_PATH . 'lib/Uri.php');
 
 class App
 {
+	/**
+	 * The router instance
+	 */
 	public $router;
 	
-	function init()
+	/**
+	 * Init the Application
+	 *
+	 */
+	public function init()
 	{
+		// create new router obj
 		$this->router = new Router();
 		
 		// set database
 		DB::setInstance('default', MYSQL_HOST, MYSQL_SCHEMA, MYSQL_USERNAME, MYSQL_PASSWORD);
 	}
 		
-	function run()
+	/**
+	 * Run the Application
+	 */
+	public function run()
 	{	
 		try
 		{
@@ -23,7 +34,15 @@ class App
 		}
 		catch (Exception $e )
 		{
-			exit(sprintf('Routing error: "%s"', $e->getMessage()));
+			switch($e->getCode())
+			{
+				case 200:
+					exit('Routing: '. $e->getMessage());
+				break;
+				default: 
+					exit(sprintf('Error: "%s"', $e->getMessage()));
+			}
+			
 		}
 	}
 }

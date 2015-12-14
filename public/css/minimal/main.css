@@ -20,10 +20,10 @@ a {
 	width: 20%;
 	float: left;
 }
-.breadcrumbs
-{
-float: left;
+.breadcrumbs {
+	float: left;
 }
+
 #logout
 {
 	float: right;
@@ -92,17 +92,22 @@ table.list tr:hover {
 }
 
 /**
- * Forms
+ * Forms (dynamic)
  */
 .field  label:first-child {
 	display: inline-block;
 	width: 150px;
 }
 
-input[type="text"],
-select,
-textarea {
-	width: 150px;
+.field input[type="text"],
+.field select,
+.field textarea {
+	width: 350px;
+	border: 1px solid grey;
+}
+
+.field  label > input[type="checkbox"] {
+	display: block;
 }
  
 

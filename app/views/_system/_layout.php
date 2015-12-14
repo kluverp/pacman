@@ -13,7 +13,7 @@
         <!-- Place favicon.ico in the root directory -->
 
         <link rel="stylesheet" href="css/normalize.css">
-		<link rel="stylesheet" href="css/minimal/main.css">
+		<link rel="stylesheet" href="css/<?php echo STYLE; ?>/main.css">
 		<?php
 		foreach ( $this->styles as $style ){
 			echo '<link rel="stylesheet" href="'. $style .'">';
