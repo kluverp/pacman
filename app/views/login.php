@@ -1,15 +1,9 @@
 <div id="login-wrapper">
 
-	<header>
-		<a class="logo" href="/">
-			<img alt="Pacman CMS" src="<?php echo img('pacman-logo_77x50.png'); ?>">
-		</a>
-		<h5>Sign in to Pacman</h5>
-	</header>
-
 	<div id="login">
 		<form accept-charset="UTF-8" action="login" method="post">
 			<fieldset>
+				<legend>Sign in to Pacman</legend>
 				<input name="_token" value="FIZAy3xeGnudohMQhIacf9DNiVDONAXvOuiW+RMTc0g=" type="hidden">
 				
 				<div class="field">
@@ -33,6 +27,10 @@
 				</div>
 			</fieldset>
 		</form>
+	</div>
+	
+	<div id="login-logo">
+		<img alt="Pacman CMS" src="<?php echo img('pacman-logo_77x50.png'); ?>">
 	</div>
 	
 </div>

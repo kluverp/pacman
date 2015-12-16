@@ -20,6 +20,11 @@ a {
 	width: 20%;
 	float: left;
 }
+#logo  img {
+	display: block;
+	height: 40px;
+	margin: 5px auto 0 auto;
+}
 .breadcrumbs {
 	float: left;
 }
@@ -45,7 +50,7 @@ a {
 #content {
 	float: left;
 	width: 80%;
-	padding: 10px;
+	padding: 20px;
 	box-sizing: border-box;
 	border-left: 1px solid #eee;
 	min-height: 100%;

@@ -1,7 +1,7 @@
 <div id="header">
 
 	<div id="logo">
-		<img src="" alt="logo" />
+		<img src="<?php echo url('public/img/pacman-logo_77x50.png'); ?>" alt="logo" />
 	</div>
 	
 	<div class="breadcrumbs">
