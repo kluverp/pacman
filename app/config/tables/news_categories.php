@@ -21,7 +21,7 @@
 return [
 		
 		'name'			=> 'news_categories',
-		'title' 		=> 'Categorieën',
+		'title' 		=> array('plural' => 'Categorieën', 'singular' => 'Categorie'),
 		'description' 	=> 'Dit is een omschrijving',
 		'rights' => [
 			'create' 	=> true,

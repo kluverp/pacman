@@ -27,11 +27,11 @@
 
 return [
 		
-		'name'			=> 'news_news',
-		'title' 		=> 'News', //array('plural' => '', 'singular' => '')
-		'title'
-		'description' 	=> 'This is a description',		
-		'rights' => [
+		'name'			=> 'news_news',									// required
+		'title' 		=> array('plural' => '', 'singular' => ''),		// required
+		'description' 	=> 'This is a description',						// (optional)
+		'emptyMsg' => 'The message when no records are found',			// (optional)
+		'rights' => [													// (optional)
 			'create' 	=> true,
 			'delete' 	=> true,
 			'edit'   	=> true

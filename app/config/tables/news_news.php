@@ -26,10 +26,8 @@
 */
 
 return [
-		
 		'name'			=> 'news_news',
-		'title' 		=> 'News', //array('plural' => '', 'singular' => '')
-		'title'
+		'title' 		=> array('plural' => 'News', 'singular' => 'News'),
 		'description' 	=> 'This is a description',		
 		'rights' => [
 			'create' 	=> true,

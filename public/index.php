@@ -9,7 +9,10 @@ define('LIB_PATH', ROOT_PATH .'lib/');
 define('APP_PATH', ROOT_PATH .'app/');
 define('CONFIG_PATH', APP_PATH . 'config/');
 define('CONTROLLER_PATH', APP_PATH .'controllers/');
-define('BASE_PATH', 'http://' . preg_replace('/\/+/', '/', $_SERVER['HTTP_HOST'] .'/'. dirname(dirname(str_replace($_SERVER['DOCUMENT_ROOT'], '', $_SERVER['SCRIPT_FILENAME']))) . '/'));
+
+// determine the protocol used (we check for 'HTTPS' since 'REQUEST_SCHEME' is unreliable
+$protocol = isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+define('BASE_PATH', $protocol . preg_replace('/\/+/', '/', $_SERVER['HTTP_HOST'] .'/'. dirname(dirname(str_replace($_SERVER['DOCUMENT_ROOT'], '', $_SERVER['SCRIPT_FILENAME']))) . '/'));
 
 // require the resources
 if ( ! is_file(ROOT_PATH . '.env.php') )

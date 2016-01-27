@@ -10,8 +10,9 @@ class Table
 		'rights' => array(
 			'create' => true,
 			'edit'   => true,
-			'delete' => true
-		)
+			'delete' => true,
+		),
+		'emptyMsg' => 'No records found'
 	);
 	
 	/**
@@ -31,7 +32,7 @@ class Table
 		$this->config = array_merge($this->config, $config);
 		
 		// set data
-		$this->data = $data;
+		$this->setData($data);
 	}
 	
 	/**
@@ -55,6 +56,11 @@ class Table
 ';
 	}
 	
+	/**
+	 * Returns the table columns
+	 *
+	 * @return array
+	 */
 	private function getCols()
 	{
 		return $this->config['index'];
@@ -83,8 +89,9 @@ class Table
 	}
 	
 	/**
+	 * returns the 'create' new URI
 	 *
-	 *
+	 * @return string
 	 */
 	private function renderCreateLink()
 	{
@@ -99,10 +106,20 @@ class Table
 	private function renderRows()
 	{
 		$str = '';
+		$i = 0;
+		
+		if ( ! $this->data )
+		{
+			$str .= sprintf('<tr class=""><td colspan="%d">%s</td></tr>', $this->getColCount(), $this->config['emptyMsg']);
+		}
 				
+		// loop over data and create row
 		foreach ( $this->data as $row )
 		{
-			$str .= sprintf('<tr>%s</tr>', $this->renderCols($row));
+			$class = ($i % 2) ? 'even' : 'odd';
+			$str .= sprintf('<tr class="%s">%s</tr>', $class, $this->renderCols($row));
+			
+			$i++;
 		}
 				
 		return $str;
@@ -132,10 +149,30 @@ class Table
 		return $str;
 	}
 	
+	private function renderPaging()
+	{
+		'<div class="table-nav bottom">
+			
+			<div class="bulk-actions">
+			
+			</div>
+			
+			<ul class="table-paging">
+				<li>xx items</li>
+				<li class="first-page"><a href="">&laquo;</a></li>
+				<li class="prev-page"><a href="">&rsaquo;</a></li>
+				<li>van xx</li>
+				<li class="next-page"><a href="">&lsaquo;</a></li>
+				<li class="last-page"><a href="">&raquo;</a></li>
+			</ul>
+						
+		</div>';
+	}
+	
 	private function getEditLink($rowId = 0)
 	{
 		// add edit link if allowed
-		if ( $this->config['rights']['edit'] === true)
+		if ( $this->canEdit() )
 		{
 			return sprintf('<a href="%s">edit</a>', url('table/edit/'. $this->config['name'] . '/' . $rowId));
 		}
@@ -146,7 +183,7 @@ class Table
 	private function getDeleteLink($rowId = 0)
 	{
 		// add delete link if allowed
-		if ( $this->config['rights']['delete'] === true) 
+		if ( $this->canDelete() ) 
 		{
 			return sprintf('<a href="%s">delete</a>', url('table/delete/'. $this->config['name'] . '/' . $rowId));
 		}
@@ -154,16 +191,75 @@ class Table
 		return '';
 	}
 	
+	/**
+	 * Returns the table title in plural form
+	 *
+	 * @return string
+	 */
 	public function getTitle()
 	{
-		return $this->config['title'];
+		return $this->config['title']['plural'];
 	}
 	
+	/**
+	 * Returns the table description
+	 *
+	 * @return string
+	 */
 	public function getDescription()
 	{
 		return $this->config['description'];
 	}
 	
+	/**
+	 * Returns if the user may edit records
+	 *
+	 * @return bool
+	 */
+	private function canEdit()
+	{
+		return $this->config['rights']['edit'] === true;
+	}
+	
+	/**
+	 * Returns if the user may delete records yes/no
+	 *
+	 * @return bool
+	 */
+	private function canDelete()
+	{
+		return $this->config['rights']['delete'] === true;
+	}
+	
+	/**
+	 * Returns the table's total column count
+	 *
+	 * @return int
+	 */
+	private function getColCount()
+	{
+		// set # cols to total cols
+		$count = count($this->getCols());
+		
+		// increase column count for 'actions' cols 
+		$count += $this->canEdit() ? 1 : 0;		
+		$count += $this->canDelete() ? 1 : 0;
+		
+		return $count;
+	}
+	
+	/**
+	 * Set the data array
+	 *
+	 * @return array
+	 */
+	private function setData($data = array())
+	{
+		// check for data, or init
+		$data = $data ? $data : array();
+		
+		return $this->data = $data;
+	}
 	
 	
 	

@@ -49,7 +49,7 @@ class Menu {
 			
 			$subitems[] = array(
 				'url'   => url('table/index/' . $table),
-				'label' => $tableConfig['title']
+				'label' => $tableConfig['title']['plural']
 			);
 		}
 		

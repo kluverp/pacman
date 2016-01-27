@@ -1,8 +1,5 @@
 <?php
 
-require_once(ROOT_PATH . 'lib/Form/Field.php');
-require_once(ROOT_PATH . 'lib/Form/SelectField.php');
-
 class RadioField extends SelectField
 {
 	/**

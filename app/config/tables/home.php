@@ -21,7 +21,7 @@
 return [
 		
 		'name'			=> 'home',
-		'title' 		=> 'Homepage',
+		'title' 		=> array('plural' => 'Homepage', 'singular' => 'Homepage'),
 		'description' 	=> 'Foo',
 		'rights' => [
 			'create' 	=> true,

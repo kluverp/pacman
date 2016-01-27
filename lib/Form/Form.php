@@ -1,68 +1,93 @@
 <?php
 
-require_once(ROOT_PATH . 'lib/Form/InputField.php');
-require_once(ROOT_PATH . 'lib/Form/TextareaField.php');
-require_once(ROOT_PATH . 'lib/Form/RadioField.php');
-require_once(ROOT_PATH . 'lib/Form/CheckboxField.php');
+require_once(ROOT_PATH . 'lib/Form/FormFieldFactory.php');
 
-class Form {
-
+class Form
+{
+	/**
+	 * The form configuration array
+	 * 
+	 * @var array()
+	 */
 	private $config = array();
+	
+	/**
+	 * The array holding field objects
+	 *
+	 * @var array
+	 */
 	private $fields = array();
 
+	/**
+	 * Class Constructor
+	 *
+	 * Receives a configuration array telling our form what it should look like
+	 *
+	 */
 	public function __construct($config = array())
 	{
+		// set the config obj
 		$this->config = $config;
 		
+		// init the form
 		$this->init();
 	}
 
+	/**
+	 * Factory function to create a new form obj
+	 *
+	 * @param array $config
+	 */
 	public static function make($config = array())
 	{
 		return new self($config);
 	}
 	
+	/**
+	 * Init the form 
+	 *
+	 */
 	public function init()
 	{
+		// loop over each defined field
 		foreach ( $this->config as $fieldName => $fieldConfig )
 		{
+			// get the fieldtype from config file
 			$fieldType = isset($fieldConfig['type']) ? $fieldConfig['type'] : false;
-			
-			switch($fieldType)
+		
+			// create new form field with Factory, and add to fields array
+			if ( $field = FormFieldFactory($fieldType, $fieldName, $fieldConfig) )
 			{
-				case 'text':
-					$this->addField(new InputField($fieldName, $fieldConfig));
-					break;
-				case 'textarea':
-					$this->addField(new TextareaField($fieldName, $fieldConfig));
-					break;
-				case 'select':
-					$this->addField(new SelectField($fieldName, $fieldConfig));
-					break;
-				case 'radio':
-					$this->addField(new RadioField($fieldName, $fieldConfig));
-					break;
-				case 'checkbox':
-					$this->addField(new CheckboxField($fieldName, $fieldConfig));
-					break;
-				default:
-					$this->addField(new InputField($fieldName, $fieldConfig));
+				$this->addField($field);
 			}
 		}
 	}
 	
+	/**
+	 * Adds a field to the fields array
+	 *
+	 */
 	public function addField($field = false)
 	{
-		if ( $field )
+		// check if a field obj is given
+		if ( is_object($field) )
 		{
-			$this->fields[] = $field;
+			return $this->fields[] = $field;
 		}
+		
+		return false;
 	}
 	
+	/**
+	 * Renders the form
+	 *
+	 * @return string
+	 */
 	public function render()
 	{
 		$str = '';
 		
+		// loop over all fields, and render each one
 		foreach ( $this->fields as $field )
 		{
 			$str .= $field->render();

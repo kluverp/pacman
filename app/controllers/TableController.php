@@ -50,8 +50,8 @@ class TableController extends Controller
 	public function getIndex()
 	{
 		// get data
-		$data = DB::query('SELECT * FROM news_news');
-
+		$data = DB::query(sprintf('SELECT * FROM `%s`', $this->table));
+		
 		// create table
 		$table = Table::make($this->tableConfig, $data);
 		
@@ -68,11 +68,12 @@ class TableController extends Controller
 		// create the form
 		$form = Form::make($tableConfig['fields']);
 		
+		// output the view
 		return $this->output('form', array(
 			'form'       => $form,
 			'table'      => $tableConfig,
 			'formAction' => url(Uri::segment(0) .'/'. Uri::segment(1) .'/'. Uri::segment(2)),
-			'HTMLTitle' => 'Edit'
+			'HTMLTitle'  => 'Edit'
 		));
 	}
 	
@@ -128,16 +129,19 @@ class TableController extends Controller
 	/**
 	 * Returns the HTML title for these pages
 	 *
-	 * @return mixed
+	 * @return string
 	 */
 	protected function getHTMLTitle()
 	{
-		if (isset($this->tableConfig['title']) )
+		$title = '';
+		
+		// check for valid title entry
+		if (isset($this->tableConfig['title']['plural']) )
 		{
-			return $this->tableConfig['title'];
+			$title = $this->tableConfig['title']['plural'];
 		}
 		
-		return false;
+		return $title;
 	}
 
 
