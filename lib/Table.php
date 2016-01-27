@@ -63,6 +63,11 @@ class Table
 	 */
 	private function getCols()
 	{
+		if ( ! isset($this->config['index']) )
+		{
+			return array();
+		}
+		
 		return $this->config['index'];
 	}
 	

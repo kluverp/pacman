@@ -1,1 +1,3 @@
-WMD is a small, simple WYSIWYG-style HTM
+<?php
+
+//WMD is a small, simple WYSIWYG-style HTML

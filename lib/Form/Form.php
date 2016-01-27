@@ -56,7 +56,7 @@ class Form
 			$fieldType = isset($fieldConfig['type']) ? $fieldConfig['type'] : false;
 		
 			// create new form field with Factory, and add to fields array
-			if ( $field = FormFieldFactory($fieldType, $fieldName, $fieldConfig) )
+			if ( $field = FormFieldFactory::make($fieldType, $fieldName, $fieldConfig) )
 			{
 				$this->addField($field);
 			}

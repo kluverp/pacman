@@ -43,9 +43,9 @@ return [
 				'label' 		=> 'Inhoud',
 				'placeholder' 	=> 'Inhoud'
 			],
-			'token' => [
+			/*'token' => [
 				'type' => 'hidden',
-			],
+			],*/
 			'status' => [
 				'type' => 'radio',
 				'label' => 'Status',

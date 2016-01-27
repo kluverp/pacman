@@ -1,8 +1,13 @@
 <?php
-require_once(ROOT_PATH . 'lib/Form/Fields/TextareaField.php');
 require_once(ROOT_PATH . 'lib/Form/Fields/SelectField.php');
-require_once(ROOT_PATH . 'lib/Form/Fields/RadioField.php');
 require_once(ROOT_PATH . 'lib/Form/Fields/CheckboxField.php');
+require_once(ROOT_PATH . 'lib/Form/Fields/EditorField.php');
+require_once(ROOT_PATH . 'lib/Form/Fields/InputField.php');
+require_once(ROOT_PATH . 'lib/Form/Fields/LatLngField.php');
+require_once(ROOT_PATH . 'lib/Form/Fields/RadioField.php');
+require_once(ROOT_PATH . 'lib/Form/Fields/SlugField.php');
+require_once(ROOT_PATH . 'lib/Form/Fields/TextareaField.php');
+
 
 class FormFieldFactory
 {
@@ -11,7 +16,7 @@ class FormFieldFactory
 	 *
 	 * @return Field Object
 	 */
-    public static function create($fieldType = '', $fieldname = '', $config = array())
+    public static function make($fieldType = '', $fieldname = '', $config = array())
     {
 		// create fields based on fieldtype
 		switch($fieldType)

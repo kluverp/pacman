@@ -64,16 +64,16 @@ class TableController extends Controller
 	 *
 	 */
 	public function getCreate()
-	{		
+	{
 		// create the form
-		$form = Form::make($tableConfig['fields']);
+		$form = Form::make($this->tableConfig['fields']);
 		
 		// output the view
 		return $this->output('form', array(
 			'form'       => $form,
-			'table'      => $tableConfig,
-			'formAction' => url(Uri::segment(0) .'/'. Uri::segment(1) .'/'. Uri::segment(2)),
-			'HTMLTitle'  => 'Edit'
+			'title'      => ucfirst($this->tableConfig['title']['singular']),
+			'description' => ucfirst($this->tableConfig['description']),
+			'formAction' => url(Uri::segment(0) .'/'. Uri::segment(1) .'/'. Uri::segment(2))
 		));
 	}
 	

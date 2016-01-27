@@ -1,3 +1,7 @@
+<h1><?php echo $this->data['title']; ?></h1>
+
+<p><?php echo $this->data['description']; ?></p>
+
 <div class="form-options-top">
 	<a href="#">Nieuw</a> <!-- groene knop -->
 
