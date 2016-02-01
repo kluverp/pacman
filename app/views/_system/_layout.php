@@ -4,7 +4,7 @@
 		<base href="<?php echo url(); ?>" />
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title><?php echo $this->getHTMLTitle(); ?> | <?php echo APP_TITLE; ?></title>
+        <title><?php //echo $this->getHTMLTitle(); ?> | <?php echo APP_TITLE; ?></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 

@@ -22,15 +22,10 @@ class Uri
 	 * 
 	 * @param $url The uri to parse
 	 */
-	public function __construct($url = '')
+	public function __construct()
 	{
-		// set parsedUrl data
-		$this->parsedUrl = parse_url($url);
-		
-		//dd($this->parsedUrl);
-		
 		// create the uri segments array
-		$this->setSegments();		
+		$this->setSegments();
 	}
 	
 	/**
@@ -42,7 +37,7 @@ class Uri
 	{
 		if ( self::$instance === null )
 		{
-			$uri = new self($_SERVER['REQUEST_URI']);
+			$uri = new self();
 			
 			self::$instance = $uri;
 		}
@@ -59,13 +54,13 @@ class Uri
 	{
 		$documentRoot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
 		$rootPath = str_replace('\\', '/', realpath(ROOT_PATH));
-		
-		$root = str_replace($documentRoot, '',  $rootPath);
-						
+
+		$root = rawurlencode(ltrim(str_replace($documentRoot, '',  $rootPath), '/'));
+
 		$foo = str_replace($root, '', trim($_SERVER['REQUEST_URI'], '/'));
-		
+
 		$foo = parse_url ($foo, PHP_URL_PATH);
-			
+
 		$segments = explode('/', trim($foo, '/'));
 										
 		return $this->segments = $segments;

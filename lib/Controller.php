@@ -65,13 +65,18 @@ class Controller
 		// set response code
 		http_response_code($response_code);
 		
+		
 		// set template data
-		foreach ( $data as $k => $v )
-		{
-			$this->data[$k] = $v;
-		}
+		//foreach ( $data as $k => $v )
+		//{
+		//	$this->data[$k] = $v;
+		//}
+		
+		$html = View::make(view('_system/_layout.php'), $data);
+		
+		echo $html;
 
-		include(view('_system/_layout.php'));
+		//include(view('_system/_layout.php'));
 	}
 		
 	public function renderMenu()
