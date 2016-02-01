@@ -1,7 +1,7 @@
 <?php
 
-require_once(ROOT_PATH . 'lib/Config.php');
-require_once(ROOT_PATH . 'lib/Uri.php');
+require_once(LIB_PATH . 'Config/Config.php');
+require_once(LIB_PATH . 'Uri.php');
 
 class App
 {

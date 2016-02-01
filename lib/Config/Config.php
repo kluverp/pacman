@@ -12,8 +12,8 @@ class Config
 
 	public function __construct()
 	{
-		// pk_news.fields.title
 	}
+	
 	
 	public static function getInstance()
 	{
@@ -23,20 +23,33 @@ class Config
         return self::$instance;
     }
 	
+	/**
+	 * Returns the table configuration
+	 *
+	 * @return array
+	 */
 	public static function table($filename = '')
 	{
+		// get singleton instance
 		$instance = self::getInstance();
 		
+		// check cache
 		if ( isset($instance->tables[$filename]) )
 		{
 			return $instance->tables[$filename];
 		}
 		
+		// get the filepath
 		$file = CONFIG_PATH . 'tables/' . $filename . '.php';
 		
+		// check file
 		if ( is_file($file) )
 		{
 			$config = include($file);
+			
+			// add the tablename to config file
+			$config['table'] = $filename;
+			
 			return $instance->tables[$filename] = $config;
 		}
 		

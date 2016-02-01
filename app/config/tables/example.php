@@ -26,21 +26,30 @@
 */
 
 return [
-		
-		'name'			=> 'news_news',									// required
-		'title' 		=> array('plural' => '', 'singular' => ''),		// required
-		'description' 	=> 'This is a description',						// (optional)
-		'emptyMsg' => 'The message when no records are found',			// (optional)
-		'rights' => [													// (optional)
+		'title' 		=> array('plural' => 'News', 'singular' => 'News'),
+		'description' 	=> 'This is a description',		
+		'rights' => [
 			'create' 	=> true,
 			'delete' 	=> true,
 			'edit'   	=> true
 		],
 		'bulk_actions' => true,
-		'index_columns' => [
-			'title', 'content'
+		'emptyMsg' => 'my empty message',
+		'index' => [
+			'active'  => 'active',
+			'title'   => '',
+			'date'    => 'date|%d-%m-%Y',
+			'content' => 'ellipsis|10'
+			/*'content' => function($value)
+			{
+				return $value . ' FOOBAR';
+			}*/
 		],
-		'form_fields' => [
+		'fields' => [
+			'active' => [
+				'type' => 'text',
+				'label' => 'Actief'
+			],
 			'title' => [
 				'type' 			=> 'text',
 				'label' 		=> 'Titel',
@@ -54,6 +63,7 @@ return [
 			],
 			'token' => [
 				'type' => 'hidden',
+				'label' => ''
 			],
 			'status' => [
 				'type' => 'radio',

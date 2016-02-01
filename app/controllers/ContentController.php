@@ -3,7 +3,7 @@
 require_once(ROOT_PATH . 'lib/Table.php');
 require_once(ROOT_PATH . 'lib/Form/Form.php');
 
-class TableController extends Controller
+class ContentController extends Controller
 {
 	/**
 	 * The action URI part
@@ -48,12 +48,9 @@ class TableController extends Controller
 	 * Index function
 	 */
 	public function getIndex()
-	{
-		// get data
-		$data = DB::query(sprintf('SELECT * FROM `%s`', $this->table));
-		
+	{	
 		// create table
-		$table = Table::make($this->tableConfig, $data);
+		$table = Table::make($this->tableConfig);
 		
 		// output the view
 		return $this->output('table', array('table' => $table));

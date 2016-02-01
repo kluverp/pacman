@@ -1,7 +1,5 @@
 <?php
 
-require_once(ROOT_PATH . 'lib/Config.php');
-require_once(ROOT_PATH . 'lib/Form/Form.php');
 require_once(ROOT_PATH . 'lib/Auth.php');
 require_once(ROOT_PATH . 'lib/Crypt.php');
 
