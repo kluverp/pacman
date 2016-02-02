@@ -1,9 +1,9 @@
-<h1><?php echo ucfirst($this->data['table']->getTitle()); ?></h1>
+<h1><?php echo ucfirst($data['table']->getTitle()); ?></h1>
 
-<p><?php echo ucfirst($this->data['table']->getDescription()); ?></p>
+<p><?php echo ucfirst($data['table']->getDescription()); ?></p>
 
 <?php 
 
-	echo $this->data['table']->render();
+	echo $data['table']->render();
 
 ?>

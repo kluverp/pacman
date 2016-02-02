@@ -35,7 +35,7 @@ return [
 		],
 		'bulk_actions' => true,
 		'emptyMsg' => 'my empty message',
-		'index' => [
+		'columns' => [
 			'active'  => 'active',
 			'title'   => '',
 			'date'    => 'date|%d-%m-%Y',

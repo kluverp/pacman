@@ -15,15 +15,23 @@ class Uri
 	 */
 	private $segments = array();
 	
-	private $parsedUrl = '';
+	/**
+	 * The system path to the Front-Controller php file
+	 *
+	 * @var string
+	 */
+	private $FC_PATH = '';
 	
 	/**
 	 * Class constructor
 	 * 
 	 * @param $url The uri to parse
 	 */
-	public function __construct()
-	{
+	public function __construct($FC_PATH = '')
+	{	
+		// set Front Controller Path
+		$this->FC_PATH = $FC_PATH;
+		
 		// create the uri segments array
 		$this->setSegments();
 	}
@@ -35,11 +43,10 @@ class Uri
 	 */
 	public static function getInstance()
 	{
+		// check for new instance
 		if ( self::$instance === null )
 		{
-			$uri = new self();
-			
-			self::$instance = $uri;
+			self::$instance = new self(FC_PATH);
 		}
 		
 		return self::$instance;
@@ -52,18 +59,17 @@ class Uri
 	 */
 	public function setSegments()
 	{
+		// set documentRoot
 		$documentRoot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
-		$rootPath = str_replace('\\', '/', realpath(ROOT_PATH));
+		
+		// create path relative to front-controller
+		$fcFullPath  = rtrim($_SERVER['DOCUMENT_ROOT'], '/') . $_SERVER['REQUEST_URI'];
 
-		$root = rawurlencode(ltrim(str_replace($documentRoot, '',  $rootPath), '/'));
+		// replace the system path with empty string, trim first "/"
+		$segmentStr = ltrim(str_replace($this->FC_PATH, '', $fcFullPath), '/');
 
-		$foo = str_replace($root, '', trim($_SERVER['REQUEST_URI'], '/'));
-
-		$foo = parse_url ($foo, PHP_URL_PATH);
-
-		$segments = explode('/', trim($foo, '/'));
-										
-		return $this->segments = $segments;
+		// set segments
+		return $this->segments = explode('/', trim($segmentStr, '/'));
 	}
 	
 	/**
@@ -84,10 +90,10 @@ class Uri
 	public static function segment($n = 0)
 	{
 		// get singleton
-		$uri = self::getInstance();
+		$instance = self::getInstance();
 
 		// return segment if it exists, false otherwise
-		return isset($uri->segments[$n]) ? $uri->segments[$n] : false;
+		return isset($instance->segments[$n]) ? $instance->segments[$n] : false;
 	}
 }
 

@@ -130,15 +130,7 @@ class ContentController extends Controller
 	 */
 	protected function getHTMLTitle()
 	{
-		$title = '';
-		
-		// check for valid title entry
-		if (isset($this->tableConfig['title']['plural']) )
-		{
-			$title = $this->tableConfig['title']['plural'];
-		}
-		
-		return $title;
+		return $this->tableConfig->getTitle();
 	}
 
 

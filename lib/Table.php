@@ -6,14 +6,7 @@ class Table
 	 * Table config defaults
 	 *
 	 */
-	private $config = array(
-		'rights' => array(
-			'create' => true,
-			'edit'   => true,
-			'delete' => true,
-		),
-		'emptyMsg' => 'No records found'
-	);
+	private $config = array();
 	
 	/**
 	 * Data array to render
@@ -35,7 +28,7 @@ class Table
 	public function __construct($config = array(), $data = array())
 	{
 		// set config
-		$this->config = array_merge($this->config, $config);
+		$this->config = $config; //array_merge($this->config, $config);
 		
 		// set data
 		$this->setData($data);
@@ -61,22 +54,7 @@ class Table
 </table>
 ';
 	}
-	
-	/**
-	 * Returns the table columns
-	 *
-	 * @return array
-	 */
-	private function getCols()
-	{
-		if ( ! isset($this->config['index']) )
-		{
-			return array();
-		}
 		
-		return $this->config['index'];
-	}
-	
 	/**
 	 * Renders the header columns 
 	 *
@@ -86,10 +64,10 @@ class Table
 	{
 		$str = '';
 				
-		foreach (  array_keys($this->getCols()) as $col )
+		foreach (  array_keys($this->config->getColumns()) as $col )
 		{
 			// check for label
-			$label = isset($this->config['fields'][$col]['label']) ? $this->config['fields'][$col]['label'] : '';
+			$label = $this->config->getField($col, 'label') ? $this->config->getField($col, 'label') : '';
 						
 			$str .= sprintf('<th>%s</th>', $label);
 		}
@@ -106,7 +84,7 @@ class Table
 	 */
 	private function renderCreateLink()
 	{
-		return ($this->config['rights']['create']) ? '<a href="'. url('content/create/'. $this->config['table']) .'">+ nieuw</a>' : '';
+		return ($this->config->canCreate()) ? '<a href="'. url('content/create/'. $this->config->getTable()) .'">+ nieuw</a>' : '';
 	}
 	
 	/**
@@ -121,16 +99,18 @@ class Table
 		
 		if ( ! $this->data )
 		{
-			$str .= sprintf('<tr class=""><td colspan="%d">%s</td></tr>', $this->getColCount(), $this->config['emptyMsg']);
+			$str .= sprintf('<tr class=""><td colspan="%d">%s</td></tr>', $this->config->getColCount(), $this->config->getEmptyMsg());
 		}
+		else
+		{				
+			// loop over data and create row
+			foreach ( $this->data as $row )
+			{
+				$class = ($i % 2) ? 'even' : 'odd';
+				$str .= sprintf('<tr class="%s">%s</tr>', $class, $this->renderCols($row));
 				
-		// loop over data and create row
-		foreach ( $this->data as $row )
-		{
-			$class = ($i % 2) ? 'even' : 'odd';
-			$str .= sprintf('<tr class="%s">%s</tr>', $class, $this->renderCols($row));
-			
-			$i++;
+				$i++;
+			}
 		}
 				
 		return $str;
@@ -146,7 +126,7 @@ class Table
 		$str = '';
 		
 		// cell contents
-		foreach ( $this->getCols() as $col => $renderer)
+		foreach ( $this->config->getColumns() as $col => $renderer)
 		{
 			if ( array_key_exists($col, $row) )
 			{
@@ -188,9 +168,9 @@ class Table
 	private function getEditLink($rowId = 0)
 	{
 		// add edit link if allowed
-		if ( $this->canEdit() )
+		if ( $this->config->canEdit() )
 		{
-			return sprintf('<a href="%s">edit</a>', url('content/edit/'. $this->config['table'] . '/' . $rowId));
+			return sprintf('<a href="%s">edit</a>', url('content/edit/'. $this->config->getTable() . '/' . $rowId));
 		}
 		
 		return '';
@@ -204,71 +184,14 @@ class Table
 	private function getDeleteLink($rowId = 0)
 	{
 		// add delete link if allowed
-		if ( $this->canDelete() ) 
+		if ( $this->config->canDelete() ) 
 		{
-			return sprintf('<a href="%s">delete</a>', url('content/delete/'. $this->config['table'] . '/' . $rowId));
+			return sprintf('<a href="%s">delete</a>', url('content/delete/'. $this->config->getTable() . '/' . $rowId));
 		}
 		
 		return '';
 	}
-	
-	/**
-	 * Returns the table title in plural form
-	 *
-	 * @return string
-	 */
-	public function getTitle()
-	{
-		return $this->config['title']['plural'];
-	}
-	
-	/**
-	 * Returns the table description
-	 *
-	 * @return string
-	 */
-	public function getDescription()
-	{
-		return $this->config['description'];
-	}
-	
-	/**
-	 * Returns if the user may edit records
-	 *
-	 * @return bool
-	 */
-	private function canEdit()
-	{
-		return $this->config['rights']['edit'] === true;
-	}
-	
-	/**
-	 * Returns if the user may delete records yes/no
-	 *
-	 * @return bool
-	 */
-	private function canDelete()
-	{
-		return $this->config['rights']['delete'] === true;
-	}
-	
-	/**
-	 * Returns the table's total column count
-	 *
-	 * @return int
-	 */
-	private function getColCount()
-	{
-		// set # cols to total cols
-		$count = count($this->getCols());
-		
-		// increase column count for 'actions' cols 
-		$count += $this->canEdit() ? 1 : 0;		
-		$count += $this->canDelete() ? 1 : 0;
-		
-		return $count;
-	}
-	
+			
 	/**
 	 * Set the data array
 	 *
@@ -280,9 +203,19 @@ class Table
 		$data = $data ? $data : array();
 				
 		// get data
-		$data = DB::query(sprintf('SELECT * FROM `%s`', $this->config['table']));
+		$data = DB::query(sprintf('SELECT * FROM `%s`', $this->config->getTable()));
 		
 		return $this->data = $data;
+	}
+	
+	public function getTitle()
+	{
+		return $this->config->getTitle();
+	}
+	
+	public function getDescription()
+	{
+		return $this->config->getDescription();
 	}
 	
 	

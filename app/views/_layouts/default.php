@@ -8,7 +8,7 @@
 	
 	<!-- main content -->
 	<div id="content">
-		<?php include $this->template; ?>
+		<?php include $template; ?>
 	</div>
 
 	<!-- footer -->

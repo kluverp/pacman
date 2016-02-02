@@ -25,7 +25,7 @@ class Menu {
 			}
 			
 			$tables = $module['tables'];
-			$url = url('table/index/'. reset($tables));
+			$url = url('content/index/'. reset($tables));
 			
 			$menu[] = array(
 				'label'    => $module['label'],
@@ -48,8 +48,8 @@ class Menu {
 			$tableConfig = Config::table($table);
 			
 			$subitems[] = array(
-				'url'   => url('table/index/' . $table),
-				'label' => $tableConfig['title']['plural']
+				'url'   => url('content/index/' . $table),
+				'label' => $tableConfig->getTitle()
 			);
 		}
 		

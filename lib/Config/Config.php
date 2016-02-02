@@ -1,5 +1,7 @@
 <?php
 
+require_once('TableConfig.php');
+
 class Config
 {
     // object instance
@@ -17,7 +19,8 @@ class Config
 	
 	public static function getInstance()
 	{
-        if (!self::$instance instanceof self) {
+        if (!self::$instance instanceof self)
+		{
             self::$instance = new self();
         }
         return self::$instance;
@@ -45,12 +48,10 @@ class Config
 		// check file
 		if ( is_file($file) )
 		{
-			$config = include($file);
+			// create new TableConfig obj
+			$tableConfig = new TableConfig($filename, include($file));
 			
-			// add the tablename to config file
-			$config['table'] = $filename;
-			
-			return $instance->tables[$filename] = $config;
+			return $instance->tables[$filename] = $tableConfig;
 		}
 		
 		throw new Exception('Missing table configuration for: "'. $file .'"');

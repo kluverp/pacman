@@ -1,3 +1,3 @@
 <div id="wrapper">
-	<?php include $this->template; ?>
+	<?php include $template; ?>
 </div>

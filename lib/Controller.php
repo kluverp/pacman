@@ -28,6 +28,16 @@ class Controller
 	{
 		return $this->HTMLTitle = $title;
 	}
+
+	/**
+	 * Returns the current layout
+	 *
+	 * @return string
+	 */
+	public function getLayout()
+	{
+		return $this->layout;
+	}	
 	
 	/**
 	 * Set layout template
@@ -38,7 +48,7 @@ class Controller
 	{
 		return $this->layout = $layout;
 	}
-	
+		
 	/**
 	 * Loads a 404 error page
 	 *
@@ -57,33 +67,51 @@ class Controller
 	{
 		// set template
 		$this->template = realpath(view($template . '.php'));
-				
-		// set global data
-		$breadcrumbs    = $this->getBreadcrumbs();
-		$menu = Menu::make();
-		
+					
 		// set response code
 		http_response_code($response_code);
 		
-		
-		// set template data
-		//foreach ( $data as $k => $v )
-		//{
-		//	$this->data[$k] = $v;
-		//}
-		
-		$html = View::make(view('_system/_layout.php'), $data);
+		// load the view
+		$html = View::make(view('_system/_layout.php'), array(
+			'template'    => $this->template,
+			'styles'      => $this->getStyles(),
+			'scripts'     => $this->getScripts(),
+			'layout'      => $this->getLayout(),
+			'HTMLTitle'   => $this->getHTMLTitle(),
+			'breadcrumbs' => $this->getBreadcrumbs(),
+			'menu'        => Menu::make(),
+			'data'        => $data
+		));
 		
 		echo $html;
-
-		//include(view('_system/_layout.php'));
 	}
 		
-	public function renderMenu()
+	/**
+	 * Returns the styles array
+	 *
+	 * @return array
+	 */
+	public function getStyles()
 	{
-		return 'asfjskldfj';
+		return $this->styles;
 	}
 	
+	/**
+	 * Returns the scripts array
+	 *
+	 * @return array
+	 */
+	public function getScripts($loc = 'header')
+	{
+		// check if entry exists
+		if ( isset($this->scripts[$loc]) )
+		{
+			return $this->scripts;
+		}
+		
+		return $this->scripts;
+	}
+		
 	/**
 	 * Returns an array with key => value pairs where key 
 	 * holds the url to where the crumb (value) points to.
@@ -97,5 +125,10 @@ class Controller
 			'1'      => 'Project X',
 			'2'      => 'Dit is het item'
 		);
+	}
+	
+	public function renderMenu()
+	{
+		return 'asfjskldfj';
 	}
 }

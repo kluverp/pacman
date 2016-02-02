@@ -4,7 +4,8 @@
 session_start();
 
 // Paths
-define('ROOT_PATH', __DIR__ .'/../');
+define('FC_PATH', dirname(str_replace('\\', '/', __DIR__)));
+define('ROOT_PATH', realpath(__DIR__ .'/../') . '\\');
 define('LIB_PATH', ROOT_PATH .'lib/');
 define('APP_PATH', ROOT_PATH .'app/');
 define('CONFIG_PATH', APP_PATH . 'config/');
