@@ -23,6 +23,12 @@
 | <fieldname>[placeholder]	Optional placeholder
 | <fieldname>[list]			Show the column in list yes/no
 |
+| Renderers:
+| bool (boolean). You can customize colors through the use of CSS
+| date Displays a date in the given strftime() format. Defaults to "%d-%m-Y".
+| text This will strip any HTML of your text field.
+| ellipsis Show a piece of text and cut off after x chars. Defaults to 50 chars. Most uses for previewing longer pieces of text. Strips off any HTML present.
+| function() You can pass in a closure (function(){}) as renderer. This function receives a $value parameter with the column value. You can use this for your custom column renderer.
 */
 
 return [
@@ -36,7 +42,7 @@ return [
 		'bulk_actions' => true,
 		'emptyMsg' => 'my empty message',
 		'columns' => [
-			'active'  => 'active',
+			'active'  => 'bool',
 			'title'   => '',
 			'date'    => 'date|%d-%m-%Y',
 			'content' => 'ellipsis|10'

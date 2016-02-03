@@ -120,7 +120,15 @@ class ContentController extends Controller
 	
 	public function getDelete()
 	{
-		dd('go Delete some');
+		// check if user is allowed to delete from this table
+		if ($this->tableConfig->canDelete())
+		{
+			// delete the record
+			DB::delete($this->table, $this->recordId);
+		}
+			
+		// redirect to index
+		return redirect('content/index/'. Uri::segment(2));
 	}
 	
 	/**

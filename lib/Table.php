@@ -84,7 +84,7 @@ class Table
 	 */
 	private function renderCreateLink()
 	{
-		return ($this->config->canCreate()) ? '<a href="'. url('content/create/'. $this->config->getTable()) .'">+ nieuw</a>' : '';
+		return ($this->config->canCreate()) ? '<a class="table-create" href="'. url('content/create/'. $this->config->getTable()) .'">+ nieuw</a>' : '';
 	}
 	
 	/**
@@ -170,7 +170,7 @@ class Table
 		// add edit link if allowed
 		if ( $this->config->canEdit() )
 		{
-			return sprintf('<a href="%s">edit</a>', url('content/edit/'. $this->config->getTable() . '/' . $rowId));
+			return sprintf('<a class="table-edit" href="%s">edit</a>', url('content/edit/'. $this->config->getTable() . '/' . $rowId));
 		}
 		
 		return '';
@@ -186,7 +186,7 @@ class Table
 		// add delete link if allowed
 		if ( $this->config->canDelete() ) 
 		{
-			return sprintf('<a href="%s">delete</a>', url('content/delete/'. $this->config->getTable() . '/' . $rowId));
+			return sprintf('<a class="table-delete" href="%s">delete</a>', url('content/delete/'. $this->config->getTable() . '/' . $rowId));
 		}
 		
 		return '';
@@ -208,19 +208,26 @@ class Table
 		return $this->data = $data;
 	}
 	
+	/**
+	 * Returns the Table title
+	 *
+	 * @return string
+	 */
 	public function getTitle()
 	{
 		return $this->config->getTitle();
 	}
 	
+	/**
+	 * Returns the Table description
+	 *
+	 * @return string
+	 */
 	public function getDescription()
 	{
 		return $this->config->getDescription();
 	}
-	
-	
-	
-	
+			
 	/*---------------- renderers -----------------*/
 	
 	/**
@@ -255,25 +262,45 @@ class Table
 		return $value;
 	}
 	
-	private function activeRenderer($value = '')
+	/**
+	 * Renders a Boolean value as yes/no
+	 */
+	private function boolRenderer($value = '')
 	{
 		return '<span class="rndrr-active-'. ($value ? 'yes' : 'no') .'">'. ($value ? 'Ja' : 'Nee') .'</span>';
 	}
 	
+	/**
+	 * Renders a date value to the given Dateformat
+	 *
+	 * @return string
+	 */
 	private function dateRenderer($value = '', $format = '%d-%m-Y')
 	{
 		return strftime($format, strtotime($value));
 	}
 	
+	/**
+	 * Show a piece of text of given length. Adds ... to the string if it's longer than given length
+	 * 
+	 * @return string
+	 */
 	private function ellipsisRenderer($value = '', $limit = 50)
 	{
+		// strip off spaces and HTML
 		$str = trim(strip_tags($value));
 		
+		// add ellipsis dots if str is longer than given length
 		$str = ($limit && strlen($str) > $limit) ? substr($str, 0, $limit) . '...' : $str;
 				
 		return $str;
 	}
 	
+	/**
+	 * Renders text without HTML
+	 
+	 * @return string
+	 */
 	private function textRenderer($value = '')
 	{
 		return trim(strip_tags($value));

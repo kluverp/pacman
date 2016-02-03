@@ -87,19 +87,24 @@ class DB
 	 *
 	 * @return obj
 	 */
-	public static function prepare($query = '', $params = array(), $instance = false)
+	public static function prepared($query = '', $params = array(), $instance = false)
 	{
+		// get the database instance
 		$db = self::getInstance();
 		
+		// run prepared statement
 		$sth = $db->prepare($query);
-		$sth->execute($params);
 		
+		// execute
+		$result = $sth->execute($params);
+				
+		// return result
 		return $sth;
 	}
 	
 	public static function fetch($query = '', $params = array(), $instance = false)
 	{
-		if ( $result = self::prepare($query, $params) )
+		if ( $result = self::prepared($query, $params) )
 		{
 			return $result->fetch();
 		}
@@ -134,5 +139,23 @@ class DB
 		
 		// return last insert id
 		return $db->lastInsertId();		
+	}
+	
+	/**
+	 * Delete a record by given id
+	 *
+	 * @param string $table 	  The table name to remove from
+	 * @param int $id             The id of the record to remove
+	 * @param string $instance    The DB instance to call if not default
+	 *
+	 * @return bool
+	 */
+	public static function delete($table = '', $id = 0, $instance = false)
+	{	
+		// build the SQL query
+		$sql = 'DELETE FROM `?` WHERE id = ?';
+
+		// run prepared statement
+		return self::prepared($sql, array($table, $id));
 	}
 }
