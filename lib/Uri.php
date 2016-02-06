@@ -16,7 +16,7 @@ class Uri
 	private $segments = array();
 	
 	/**
-	 * The system path to the Front-Controller php file
+	 * The system path to the Front-Controller index.php file
 	 *
 	 * @var string
 	 */
@@ -25,13 +25,14 @@ class Uri
 	/**
 	 * Class constructor
 	 * 
-	 * @param $url The uri to parse
+	 * @param $FC_PATH The absolute path to the Front-Controller file. This so we can
+	 * built the relative path to the web root.
 	 */
 	public function __construct($FC_PATH = '')
 	{	
-		// set Front Controller Path
-		$this->FC_PATH = $FC_PATH;
-		
+		// set Front Controller Path, URL decode to handle spaces and stuff
+		$this->FC_PATH = urldecode($FC_PATH);
+
 		// create the uri segments array
 		$this->setSegments();
 	}
@@ -62,8 +63,8 @@ class Uri
 		// set documentRoot
 		$documentRoot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
 		
-		// create path relative to front-controller
-		$fcFullPath  = rtrim($_SERVER['DOCUMENT_ROOT'], '/') . $_SERVER['REQUEST_URI'];
+		// create path relative to front-controller, url decode to handle spaces and stuff
+		$fcFullPath  = rtrim($_SERVER['DOCUMENT_ROOT'], '/') . urldecode($_SERVER['REQUEST_URI']);
 
 		// replace the system path with empty string, trim first "/"
 		$segmentStr = ltrim(str_replace($this->FC_PATH, '', $fcFullPath), '/');
