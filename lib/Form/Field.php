@@ -17,10 +17,13 @@ abstract class Field
 	 * @param string $fielName
 	 * @param array $config
 	 */
-	public function __construct($fieldName = '', $config = array())
+	public function __construct($fieldName = '', $config = array(), $value = '')
 	{
 		// set name attr
 		$this->setName($fieldName);
+		
+		// set the value
+		$this->setValue($value);
 		
 		// set the rest of the attributes
 		foreach ( $config as $key => $value )
@@ -103,6 +106,17 @@ abstract class Field
 	public function getName()
 	{
 		return $this->form_prefix . $this->name;
+	}
+	
+	/**
+	 * Set the field value
+	 *
+	 * @param mixed $value
+	 * @return mixed
+	 */
+	public function setValue($value = '')
+	{
+		return $this->value = $value;
 	}
 	
 	public function getValue()

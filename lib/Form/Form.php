@@ -23,7 +23,7 @@ class Form
 	 *
 	 * @var array
 	 */
-	private $record = null;
+	private $data = null;
 
 	/**
 	 * Class Constructor
@@ -31,10 +31,13 @@ class Form
 	 * Receives a configuration array telling our form what it should look like
 	 *
 	 */
-	public function __construct($config = array())
+	public function __construct($config = array(), $data)
 	{
 		// set the config obj
 		$this->config = $config;
+		
+		// set data
+		$this->data = $data;
 		
 		// init the form
 		$this->init();
@@ -45,9 +48,9 @@ class Form
 	 *
 	 * @param array $config
 	 */
-	public static function make($config = array(), $record = false)
+	public static function make($config = array(), $data = false)
 	{
-		return new self($config);
+		return new self($config, $data);
 	}
 	
 	/**
@@ -61,9 +64,12 @@ class Form
 		{
 			// get the fieldtype from config file
 			$fieldType = isset($fieldConfig['type']) ? $fieldConfig['type'] : false;
+			
+			// get the field value
+			$fieldValue = $this->getFieldValue($fieldName);
 		
 			// create new form field with Factory, and add to fields array
-			if ( $field = FormFieldFactory::make($fieldType, $fieldName, $fieldConfig) )
+			if ( $field = FormFieldFactory::make($fieldType, $fieldName, $fieldConfig, $fieldValue) )
 			{
 				$this->addField($field);
 			}
@@ -101,5 +107,20 @@ class Form
 		}
 		
 		return $str;
+	}
+	
+	private function getFieldValue($fieldName)
+	{		
+		if ( isset($_POST[$fieldName]) )
+		{
+			return $_POST[$fieldName];
+		}
+		
+		if ( isset($this->data[$fieldName] ) )
+		{
+			return $this->data[$fieldName];
+		}
+		
+		return false;
 	}
 }

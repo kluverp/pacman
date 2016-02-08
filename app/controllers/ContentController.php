@@ -63,14 +63,14 @@ class ContentController extends Controller
 	public function getCreate()
 	{
 		// create the form
-		$form = Form::make($this->tableConfig['fields']);
+		$form = Form::make($this->tableConfig->getFields());
 		
 		// output the view
 		return $this->output('form', array(
-			'form'       => $form,
-			'title'      => ucfirst($this->tableConfig['title']['singular']),
-			'description' => ucfirst($this->tableConfig['description']),
-			'formAction' => url(Uri::segment(0) .'/'. Uri::segment(1) .'/'. Uri::segment(2))
+			'form'        => $form,
+			'title'       => $this->tableConfig->getTitle('singular'),
+			'description' => $this->tableConfig->getDescription(),
+			'formAction'  => url(Uri::segment(0) .'/'. Uri::segment(1) .'/'. Uri::segment(2))
 		));
 	}
 	
@@ -85,7 +85,7 @@ class ContentController extends Controller
 		$id = DB::insert(Uri::segment(2), array('title' => 'foobar'));
 		
 		// redirect to edit screen
-		return redirect('table/edit/'. Uri::segment(2) .'/'. $id);
+		return redirect('content/edit/'. Uri::segment(2) .'/'. $id);
 	}
 	
 	/**

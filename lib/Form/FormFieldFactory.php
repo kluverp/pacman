@@ -16,7 +16,7 @@ class FormFieldFactory
 	 *
 	 * @return Field Object
 	 */
-    public static function make($fieldType = '', $fieldname = '', $config = array())
+    public static function make($fieldType = '', $fieldname = '', $config = array(), $value = '')
     {
 		// create fields based on fieldtype
 		switch($fieldType)
@@ -57,7 +57,7 @@ class FormFieldFactory
             throw new Exception('FormField class "'. $class .'" does not exist!');
         }
 				
-        return new $class($fieldname, $config);
+        return new $class($fieldname, $config, $value);
     }
 }
 
