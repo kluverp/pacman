@@ -17,6 +17,13 @@ class Form
 	 * @var array
 	 */
 	private $fields = array();
+	
+	/**
+	 * The database record
+	 *
+	 * @var array
+	 */
+	private $record = null;
 
 	/**
 	 * Class Constructor
@@ -38,7 +45,7 @@ class Form
 	 *
 	 * @param array $config
 	 */
-	public static function make($config = array())
+	public static function make($config = array(), $record = false)
 	{
 		return new self($config);
 	}

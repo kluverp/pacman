@@ -32,14 +32,11 @@ class LatLngField extends Field
 	 */
 	public function render()
 	{
-		return '
-<div class="field">
-	<label for="'. $this->name .'">'. $this->label .'</label>
+		return $this->wrap('
 	<select id="'. $this->name .'" name="'. $this->name .'">
 		'. $this->getEmptyOption() .'
 		'. $this->renderOptions() .'
-	</select>
-</div>';
+	</select>');
 	}
 }
 

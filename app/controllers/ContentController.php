@@ -96,18 +96,20 @@ class ContentController extends Controller
 	public function getEdit()
 	{
 		// get the record
-		if ( ! $record = DB::fetch('SELECT * FROM `'. $this->table .'` WHERE id = ?', array($this->recordId)) )
+		if ( ! $record = DB::byId($this->table, $this->recordId) )
 		{
 			dd('Record not found');
 		}
 						
 		// create the form
-		$form = Form::make($this->tableConfig['fields'], $record);
-						
+		$form = Form::make($this->tableConfig->getFields(), $record);
+
+		// load the view
 		return $this->output('form', array(
-			'form'       => $form,
-			'table'      => $this->tableConfig,
-			'formAction' => url(array($this->action, $this->table, $record['id'])),
+			'title'       => $this->tableConfig->getTitle('singular'),
+			'description' => $this->tableConfig->getDescription(),
+			'form'        => $form,
+			'formAction'  => url(array($this->action, $this->table, $record['id'])),
 		));
 		
 	}

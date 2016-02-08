@@ -9,15 +9,20 @@ class RadioField extends SelectField
 	{
 		return '
 <div class="field">
-	<label for="'. $this->name .'">'. $this->label .'</label>
+	<label for="'. $this->getName() .'">'. $this->getLabel() .'</label>
 	'. $this->renderOptions() .'
 </div>';
 	}
 	
+	/**
+	 * Renders the options
+	 *
+	 */
 	public function renderOptions()
 	{
 		$str = '';
-		$i = 0;
+		$i   = 0;
+				
 		foreach ( $this->options as $option )
 		{
 			$id = $this->name . '_' . $i;
@@ -29,7 +34,7 @@ class RadioField extends SelectField
 				$checked = '';
 			}
 			
-			$str .= '<label for="'. $id .'">'. $option['label'] .'</label><input type="radio" id="'. $id .'" name="'. $this->name .'" value="'. $option['value'] .'" '. $checked .'/>';
+			$str .= '<input type="radio" id="'. $id .'" name="'. $this->name .'" value="'. $option['value'] .'" '. $checked .'/><label for="'. $id .'">'. $option['label'] .'</label>';
 			$i++;
 		}
 		

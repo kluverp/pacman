@@ -102,9 +102,13 @@ table.list tr.odd {
 /**
  * Forms (dynamic)
  */
-.field  label:first-child {
+.field {
+	margin: 0 0 10px 0;
+}
+.field > label:first-child {
 	display: inline-block;
 	width: 150px;
+	vertical-align: top;
 }
 
 .field input[type="text"],
@@ -112,10 +116,46 @@ table.list tr.odd {
 .field textarea {
 	width: 350px;
 	border: 1px solid grey;
+	box-sizing: border-box;
+	padding: 2px 5px;
+}
+.field  input[type="radio"]  + label {
+	margin: 0 10px 0 5px;
+}
+.field .cbx-group {
+	margin-left: 154px;
+	margin-top: -18px;
+	width: 350px;
+}
+.field .cbx-group label{
+	display: block;
+}
+.field .cbx-group label > input {
+	margin-right: 5px;
 }
 
-.field  label > input[type="checkbox"] {
-	display: block;
+
+.form-options {
+	margin: 20px 0;
+}
+.form-options a {
+	display: inline-block;
+	height: 30px;
+	color: white;
+	line-height: 30px;
+	padding: 0 20px;
+}
+a.frm-options-create {
+	background-color: green;
+}
+a.frm-options-cancel {
+	background-color: grey;
+}
+a.frm-options-delete {
+	background-color: red;
+}
+a.frm-options-save {
+	background-color: blue;
 }
 
 /**

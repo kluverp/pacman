@@ -30,8 +30,8 @@ class Uri
 	 */
 	public function __construct($FC_PATH = '')
 	{	
-		// set Front Controller Path, URL decode to handle spaces and stuff
-		$this->FC_PATH = urldecode($FC_PATH);
+		// set Front-Controller path
+		$this->setFC_PATH($FC_PATH);
 
 		// create the uri segments array
 		$this->setSegments();
@@ -95,6 +95,17 @@ class Uri
 
 		// return segment if it exists, false otherwise
 		return isset($instance->segments[$n]) ? $instance->segments[$n] : false;
+	}
+	
+	/**
+	 * Set the Front-Controller path
+	 * URL Decodes the path, to handle special chars like spaces
+	 * 
+	 * @return string
+	 */
+	private function setFC_PATH($FC_PATH = '')
+	{
+		return $this->FC_PATH = urldecode($FC_PATH);
 	}
 }
 

@@ -19,8 +19,10 @@ abstract class Field
 	 */
 	public function __construct($fieldName = '', $config = array())
 	{
-		$this->name = $fieldName;
+		// set name attr
+		$this->setName($fieldName);
 		
+		// set the rest of the attributes
 		foreach ( $config as $key => $value )
 		{
 			$this->$key = $value;
@@ -35,6 +37,60 @@ abstract class Field
 	public function render()
 	{
 		return '';
+	}
+	
+	/**
+	 * Wraps the final input in HTML
+	 *
+	 * @return string
+	 */
+	protected function wrap($input = '')
+	{
+	return '
+<div class="field">
+	<label for="'. $this->getName() .'">'. $this->getLabel() . ($this->getRequired() ? '*' : '') .'</label>
+	'. $input .'
+</div>';
+	}
+	
+	/**
+	 * Build the HTML attribute string
+	 *
+	 * @param array $atts
+	 * @return array
+	 */
+	protected function getAtts($atts = array())
+	{
+		$str = '';
+		
+		// remove all empty values
+		$atts = array_filter($atts);
+		
+		// build string with attributes
+		foreach ($atts as $name => $value)
+		{
+			// if boolean value and set, add attr without value
+			if (is_bool($value) && $value)
+			{
+				$str .= ' ' . $name;
+			}
+			else
+			{
+				$str .= ' ' . $name . '="'. $value .'"';
+			}
+		}
+		
+		return $str;
+	}
+	
+	/**
+	 * Set's the field name attr
+	 *
+	 * @return string
+	 */
+	public function setName($name = '')
+	{
+		return $this->name = $name;
 	}
 	
 	/**
@@ -73,8 +129,6 @@ abstract class Field
 	{
 		return $this->required;
 	}
-
-
 }
 
 

@@ -82,6 +82,19 @@ class DB
 	}
 	
 	/**
+	 * Returns the record by ID
+	 *
+	 * @param string $table 		The tablename to get from
+	 * @param int $id 				The record ID to get
+	 *
+	 * @return mixed
+	 */
+	public static function byId($table = '', $id = 0)
+	{
+		return DB::fetch('SELECT * FROM `'. $table .'` WHERE id = ?', array($id));
+	}
+	
+	/**
 	 * Perform prepared statement with given query and params
 	 * You can choose either to use the ? notation or the :foo notation.
 	 *

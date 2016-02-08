@@ -4,17 +4,58 @@ require_once(ROOT_PATH . 'lib/Form/Field.php');
 
 class TextareaField extends Field
 {	
+	/**
+	 * The cols attribute
+	 * @var int
+	 */
 	protected $cols      = 30;
+	
+	/**
+	 * The rows attr
+	 * @var int
+	 */
 	protected $rows      = 4;
-	protected $maxlength = false;
 
+	/**
+	 * Renders the field
+	 * 
+	 * @return string
+	 */
 	public function render()
 	{
-		return '
-<div class="field">
-	<label for="'. $this->name .'">'. $this->label . ($this->required ? '*' : '') .'</label>
-	<textarea id="'. $this->name .'" name="'. $this->name .'" cols="'. $this->cols .'" rows="'. $this->rows .'" placeholder="'. $this->placeholder .'" required="'. $this->required .'" '. ($this->maxlength ? 'maxlength="'. $this->maxlength .'"' : '' ) .'>'. $this->value .'</textarea>
-</div>';
+		// built the attribute string
+		$attsStr = $this->getAtts(array(
+			'id'          => $this->getName(),
+			'name'        => $this->getName(),
+			'cols'        => $this->getCols(),
+			'rows'        => $this->getRows(),
+			'placeholder' => $this->getPlaceholder(),
+			'required'    => $this->getRequired(),
+			'maxlength'   => $this->getMaxlength()
+		));
+		
+		// returns the formatted HTML
+		return $this->wrap(sprintf('<textarea%s>%s</textarea>', $attsStr, $this->getValue()));
+	}
+	
+	/**
+	 * Returns the cols attr
+	 * 
+	 * @return int
+	 */
+	private function getCols()
+	{
+		return $this->cols;
+	}
+
+	/**
+	 * Returns the rows attr
+	 * 
+	 * @return int
+	 */	
+	private function getRows()
+	{
+		return $this->rows;
 	}
 }
 

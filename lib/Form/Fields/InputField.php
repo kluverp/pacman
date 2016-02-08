@@ -6,26 +6,36 @@ class InputField extends Field
 {
 	/**
 	 * Default type
+	 *
 	 * @var string
 	 */
 	protected $type = 'text';
 
 	/**
  	 * List of valid HTML5 input types
+	 * 
 	 * @var array
  	 */
 	protected $valid_types = array('text', 'password', 'submit', 'radio', 'checkbox', 'button', 'color', 'date', 'datetime', 'datetime-local', 'email', 'month', 'number', 'range', 'search', 'tel', 'time', 'url', 'week');
 	
 	/**
 	 * Renders the field
+	 * 
+	 * @return string
 	 */
 	public function render()
 	{
-		return '
-<div class="field">
-	<label for="'. $this->getName() .'">'. $this->getLabel() . ($this->getRequired() ? '*' : '') .'</label>
-	<input type="'. $this->getType() .'" id="'. $this->getName() .'" name="'. $this->getName() .'" value="'. $this->getValue() .'" placeholder="'. $this->getPlaceholder() .'" maxlength="'. $this->getMaxlength() .'" />
-</div>';
+		$attsStr = $this->getAtts(array(
+			'type'        => $this->getType(),
+			'id'          => $this->getName(),
+			'name'        => $this->getName(),
+			'value'       => $this->getValue(),
+			'placeholder' => $this->getPlaceholder(),
+			'maxlength'   => $this->getMaxlength()
+		));
+		
+		// render the field
+		return $this->wrap('<input'. $attsStr .'/>');
 	}
 	
 	/**

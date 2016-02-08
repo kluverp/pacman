@@ -53,8 +53,8 @@ return [
 		],
 		'fields' => [
 			'active' => [
-				'type' => 'text',
-				'label' => 'Actief'
+				'type'          => 'text',
+				'label'         => 'Actief'
 			],
 			'title' => [
 				'type' 			=> 'text',
@@ -63,34 +63,36 @@ return [
 				
 			],
 			'content' => [
-				'type' 			=> 'text',
+				'type' 			=> 'textarea',
 				'label' 		=> 'Inhoud',
-				'placeholder' 	=> 'Inhoud'
+				'placeholder' 	=> 'Inhoud',
+				'required'      => true
 			],
 			'token' => [
-				'type' => 'hidden',
-				'label' => ''
+				'type'          => 'hidden',
+				'label'         => 'hidden'
 			],
 			'status' => [
-				'type' => 'radio',
-				'label' => 'Status',
-				'options' => "Ja,1,ffffff|Nee,0,ff00ee" // if left out, source comes from DB table
+				'type'          => 'radio',
+				'label'         => 'Status',
+				'options'       => "Ja,1,ffffff|Nee,0,ff00ee" // if left out, source comes from DB table
 			],
 			'fruit' => [
-				'type' => 'select',
-				'label' => 'Welk fruit?',
-				'options' => "Bananen,1,yellow|Peren,2,green|Appels,3,red"
+				'type'          => 'select',
+				'label'         => 'Welk fruit?',
+				'options'       => "Bananen,1,yellow|Peren,2,green|Appels,3,red"
 			],
 			'cars' => [
-				'type' => 'select',
-				'label' => 'Welke auto?',
-				'options' => "Ford,1,yellow|Mazda,2,green|Renault,3,red",
-				'allowEmpty' => true
+				'type'          => 'select',
+				'label'         => 'Welke auto?',
+				'options'       => "Ford,1,yellow|Mazda,2,green|Renault,3,red",
+				'allowEmpty'    => true,
+				'emptyLabel'    => 'Maak een keuze:'
 			],
 			'events' => [
-				'type' => 'checkbox',
-				'label' => 'Wat gaan we doen?',
-				'options' => "Ford,1,yellow|Mazda,2,green|Renault,3,red"
+				'type'          => 'checkbox',
+				'label'         => 'Wat gaan we doen?',
+				'options'       => "Ford,1,yellow|Mazda,2,green|Renault,3,red"
 			]
 		]
 	];

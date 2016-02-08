@@ -6,45 +6,65 @@ class SelectField extends Field
 {
 	/**
 	 * Holds the Select options array
+	 *
 	 * @var array
 	 */
 	protected $options = array();
 	
 	/**
 	 * If set, allow an empty value
+	 *
 	 * @var bool
 	 */
 	protected $allowEmpty = false;
 	
 	/**
 	 * The label for the empty option
+	 * Can be set in TableConfig obj
+	 *
 	 * @var string
 	 */
-	protected $emptyLabel = '- kies -';
+	protected $emptyLabel = '- choose -';
 	
+	/**
+	 * Class Constructor
+	 *
+	 */
 	public function __construct($fieldName = '', $fieldConfig = array())
 	{
+		// call parent constructor
 		parent::__construct($fieldName, $fieldConfig);
 		
-		$this->init();
+		// parse the options string
+		$this->parseOptions();
 	}
 	
-	private function init()
+	/**
+	 * Parses the options string 
+	 *
+	 * @return array
+	 */
+	private function parseOptions()
 	{
 		$options = array();
 		
+		// parse the options string and split on pipe
 		$rawOptions = explode('|', $this->options);
 				
+		// build the options array
 		foreach ( $rawOptions as $o )
 		{
+			// explode the options str
 			$values = explode(',', $o);
 			$option['label'] = $values[0];
 			$option['value'] = $values[1];
 			$option['color'] = $values[2];
 
+			// add parsed option
 			$options[] = $option;
 		}
 		
+		// set options array
 		$this->options = $options;
 	}
 	
@@ -53,19 +73,19 @@ class SelectField extends Field
 	 */
 	public function render()
 	{
-		return '
-<div class="field">
-	<label for="'. $this->name .'">'. $this->label .'</label>
-	<select id="'. $this->name .'" name="'. $this->name .'">
-		'. $this->getEmptyOption() .'
-		'. $this->renderOptions() .'
-	</select>
-</div>';
+		return $this->wrap(sprintf('<select id="%s" name="%s">%s%s</select>', $this->getName(), $this->getName(), $this->renderEmptyOption(), $this->renderOptions()));
 	}
 	
+	/**
+	 * Renders the <option> tags for <select> field
+	 *
+	 * @return string
+	 */
 	public function renderOptions()
 	{
 		$str = '';
+		
+		// render each option value
 		foreach ( $this->options as $option )
 		{
 			$str .= '<option value="'. $option['value'] .'">'. $option['label'] .'</option>';
@@ -74,8 +94,14 @@ class SelectField extends Field
 		return $str;
 	}
 	
-	private function getEmptyOption()
+	/**
+	 * If 'allowEmpty' is set, we let the user choose the 'empty' value
+	 *
+	 * @return string
+	 */
+	private function renderEmptyOption()
 	{
+		// if flag is set
 		if ( $this->allowEmpty ) {
 			return '<option value="">'. $this->emptyLabel .'</option>';
 		}

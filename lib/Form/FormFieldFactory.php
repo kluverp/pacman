@@ -24,6 +24,26 @@ class FormFieldFactory
 			case 'latlng':
 				$class = 'LatLng';				
 				break;
+			case 'input':
+			case 'hidden':
+			case 'text':
+			case 'password':
+			case 'button':
+			case 'color':
+			case 'date':
+			case 'datetime':
+			case 'datetime-local':
+			case 'email':
+			case 'month':
+			case 'number':
+			case 'range':
+			case 'search':
+			case 'tel':
+			case 'time':
+			case 'url':
+			case 'week':
+				$class = 'Input';
+				break;
 			default:
 				$class = ucfirst($fieldType);
 		}
