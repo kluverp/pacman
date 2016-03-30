@@ -3,28 +3,27 @@
 	<div id="login">
 		<form accept-charset="UTF-8" action="login" method="post">
 			<fieldset>
-				<legend>Sign in to Pacman</legend>
-				<input name="_token" value="FIZAy3xeGnudohMQhIacf9DNiVDONAXvOuiW+RMTc0g=" type="hidden">
+				<legend><?php echo trans('app.login.legend'); ?></legend>
 				
 				<div class="field">
-					<label for="email">E-mail</label>
+					<label for="email"><?php echo trans('app.login.email'); ?></label>
 					<input type="email" id="email" name="email" value="" maxlength="255" />
 				</div>
 				
 				<div class="field">
-					<label for="password">Wachtwoord</label>
+					<label for="password"><?php echo trans('app.login.password'); ?></label>
 					<input type="password" id="password" name="password" value="" maxlength="255" />
+				</div>
+								
+				<div class="remember">
+					<input type="checkbox" checked="checked" id="remember_me" name="remember_me" value="1" />
+					<label class="checkbox-label" for="remember_me"><?php echo trans('app.login.remember-me'); ?></label>
 				</div>
 				
 				<div class="field">
-					<input type="submit" value="Log in" />
+					<input type="submit" value="<?php echo trans('app.login.submit'); ?>" />
 				</div>
-				
-				<div class="remember">
-					<input type="checkbox" checked="checked" id="remember_me" name="remember_me" value="1" />
-					<label class="checkbox-label" for="remember_me">Remember me</label>
-					<a href="<?php echo url('login/forgotpw'); ?>" style="float: right">Forgot Password?</a>
-				</div>
+				<a href="<?php echo url('login/forgotpw'); ?>" style="float: right"><?php echo trans('app.login.password-forgotten'); ?></a>
 			</fieldset>
 		</form>
 	</div>

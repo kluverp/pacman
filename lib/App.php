@@ -9,6 +9,7 @@ class App
 	 * The router instance
 	 */
 	public $router;
+	public $translator;
 	
 	/**
 	 * Init the Application
@@ -17,12 +18,13 @@ class App
 	public function init()
 	{
 		// create new router obj
-		$this->router = new Router();
+		$this->router     = new Router();
+		$this->translator = new Translator();
 		
 		// set database
 		DB::setInstance('default', MYSQL_HOST, MYSQL_SCHEMA, MYSQL_USERNAME, MYSQL_PASSWORD);
 	}
-		
+			
 	/**
 	 * Run the Application
 	 */

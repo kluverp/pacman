@@ -1,6 +1,6 @@
 <?php
 
-class Translation 
+class Translator 
 {
 	/**
 	 * The translations cache array
@@ -14,40 +14,21 @@ class Translation
 	 */
 	private $locale = 'nl';
 	
-	/**
-     * @var Singleton The reference to *Singleton* instance of this class
-     */
-    private static $instance = null;
-	
-	/**
-     * Returns the *Singleton* instance of this class.
-     *
-     * @return Singleton The *Singleton* instance.
-     */
-    public static function getInstance()
-    {
-        if (null === static::$instance)
-		{
-            static::$instance = new static();
-        }
-        
-        return static::$instance;
-    }
-	
-	/**
-	 * Translate given label to string
-	 *
-	 * @param string $label
-	 * 
-	 * @return string
-	 */
-	public static function trans($label = '')
-	{
-		$instance = self::getInstance();
-		
-		return $instance->translate($label);
-	}
 
+	/**
+	 * Class Constructor
+	 *
+	 * @param string $locale
+	 */
+	public function __construct($locale = false)
+	{
+		// set locale
+		if ( $locale )
+		{
+			$this->setLocale($locale);
+		}
+	}
+		
 	/**
 	 * Returns the translation for given label
 	 *
@@ -58,7 +39,7 @@ class Translation
 		$parts = explode('.', $path);
 		$file  = array_shift($parts);
 		$path  = implode('.', $parts);
-				
+								
 		// set cache if not already present
 		if ( !isset($this->translations[$file]) )
 		{
@@ -102,7 +83,7 @@ class Translation
 	private function setTranslationsCache($file = '')
 	{
 		// get translations array and set cache
-		if ( $translations = $this->parseIniFile('translations/'. $this->getLocale() .'/'. $file . '.ini') )
+		if ( $translations = $this->parseIniFile(APP_PATH . 'translations/'. $this->getLocale() .'/'. $file . '.ini') )
 		{
 			return $this->translations[$file] = $this->flattenArray($translations);
 		}
@@ -125,7 +106,7 @@ class Translation
 			return parse_ini_file($filePath, true);
 		}
 		
-		return false;
+		Throw new Exception('Cannot locate translations file: "'. $filePath .'"');
 	}
 	
 	/**
@@ -164,33 +145,4 @@ class Translation
 		
 		return $result;
 	}
-	
-	/**
-     * Protected constructor to prevent creating a new instance of the
-     * *Singleton* via the `new` operator from outside of this class.
-     */
-    protected function __construct()
-    {
-    }
-
-    /**
-     * Private clone method to prevent cloning of the instance of the
-     * *Singleton* instance.
-     *
-     * @return void
-     */
-    private function __clone()
-    {
-    }
-
-    /**
-     * Private unserialize method to prevent unserializing of the *Singleton*
-     * instance.
-     *
-     * @return void
-     */
-    private function __wakeup()
-    {
-    }
-
 }

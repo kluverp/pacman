@@ -105,6 +105,10 @@ if ( ! function_exists('view'))
 	}
 }
 
+/**
+ * Get a variable from GET, or POST array
+ *
+ */
 if ( ! function_exists('input') )
 {
 	function input($var = '', $default = false)
@@ -150,4 +154,14 @@ if ( ! function_exists('redirect') )
 		header(sprintf('Location: %s', url($url)), true, $statusCode);
 		exit;
 	}
+}
+
+if (! function_exists('trans'))
+{
+    function trans($key = false, $locale = false)
+    {
+		global $app;
+				
+		return $app->translator->translate($key, $locale);
+    }
 }

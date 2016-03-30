@@ -19,6 +19,10 @@
 		?>		
 	</div>
 	
+	<div id="settings">
+		<a href="<?php echo url('content/index/settings'); ?>"><?php trans('app.settings.title'); ?></a>
+	</div>
+	
 	<div id="logout">
 		<a href="<?php echo url('login/logout'); ?>">Logout</a>
 	</div>

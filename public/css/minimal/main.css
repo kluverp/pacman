@@ -106,9 +106,7 @@ table.list tr.odd {
 	margin: 0 0 10px 0;
 }
 .field > label:first-child {
-	display: inline-block;
-	width: 150px;
-	vertical-align: top;
+	display: block;
 }
 
 .field input[type="text"],

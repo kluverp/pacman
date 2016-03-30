@@ -29,8 +29,9 @@ require_once(LIB_PATH . 'Model.php');
 require_once(LIB_PATH . 'Controller.php');
 require_once(LIB_PATH . 'Menu.php');
 require_once(LIB_PATH . 'Router.php');
-require_once(LIB_PATH . 'App.php');
 require_once(LIB_PATH . 'View.php');
+require_once(LIB_PATH . 'Translator.php');
+require_once(LIB_PATH . 'App.php');
 
 // start the app
 $app = new App();
