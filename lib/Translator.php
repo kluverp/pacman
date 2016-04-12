@@ -80,15 +80,25 @@ class Translator
 	 *
 	 * @return array
 	 */
-	private function setTranslationsCache($file = '')
+	private function setTranslationsCache($filename = '')
 	{
 		// get translations array and set cache
-		if ( $translations = $this->parseIniFile(APP_PATH . 'translations/'. $this->getLocale() .'/'. $file . '.ini') )
+		if ( $translations = $this->parseIniFile($this->getFilePath($filename)) )
 		{
-			return $this->translations[$file] = $this->flattenArray($translations);
+			return $this->translations[$filename] = $this->flattenArray($translations);
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * Returns the path to *.ini file
+	 *
+	 * @return string
+	 */
+	private function getFilePath($filename = '')
+	{
+		return APP_PATH . 'translations/'. $this->getLocale() .'/'. $filename . '.ini';
 	}
 			
 	/**
@@ -106,7 +116,7 @@ class Translator
 			return parse_ini_file($filePath, true);
 		}
 		
-		Throw new Exception('Cannot locate translations file: "'. $filePath .'"');
+		throw new Exception('Cannot locate translations file: "'. $filePath .'"');
 	}
 	
 	/**

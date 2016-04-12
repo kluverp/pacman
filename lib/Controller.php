@@ -79,7 +79,7 @@ class Controller
 			'layout'      => $this->getLayout(),
 			'HTMLTitle'   => $this->getHTMLTitle(),
 			'breadcrumbs' => $this->getBreadcrumbs(),
-			'menu'        => Menu::make(),
+			'menu'        => $this->getMenu(),
 			'data'        => $data
 		));
 		
@@ -127,8 +127,12 @@ class Controller
 		);
 	}
 	
-	public function renderMenu()
+	/**
+	 * Returns the menu
+	 *
+	 */
+	public function getMenu()
 	{
-		return 'asfjskldfj';
+		return Menu::make();
 	}
 }

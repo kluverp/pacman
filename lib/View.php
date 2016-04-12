@@ -61,14 +61,14 @@
 		 */
 		public static function make($file = '', $data = array())
 		{
-			// extract the data array
-			extract($data);
-
 			// check if the given 'view' file exists
 			if( !is_file($file) )
 			{
-				throw new Exception('Cannot locate view "' . $file . '"');
+				throw new Exception('File not found "' . $file . '"');
 			}
+			
+			// extract the data array
+			extract($data);
 
 			// output the 'view'
 			ob_start();

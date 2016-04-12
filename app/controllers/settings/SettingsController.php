@@ -3,7 +3,7 @@
 require_once(ROOT_PATH . 'lib/Table.php');
 require_once(ROOT_PATH . 'lib/Form/Form.php');
 
-class ContentController extends Controller
+class SettingsController extends Controller
 {
 	/**
 	 * The action URI part

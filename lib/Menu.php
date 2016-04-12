@@ -18,22 +18,9 @@ class Menu {
 		$modules = Config::get('modules');
 				
 		foreach ( $modules as $key => $module )
-		{
-			if ( ! isset($module['tables'])) 
-			{
-				continue;
-			}
-			
-			$tables = $module['tables'];
-			$url = url('content/index/'. reset($tables));
-			
-			$menu[] = array(
-				'label'    => $module['label'],
-				'table'    => reset($tables),
-				'active'   => in_array(Uri::segment(2), $tables),
-				'url'      => $url,
-				'subitems' => $this->getMenuSubitems($tables)
-			);
+		{	
+			// get menu item array
+			$menu[$key] = $this->getItem($module);
 		}
 						
 		return $menu;
@@ -60,13 +47,21 @@ class Menu {
 	{
 		$str = '';
 		
-		foreach ($this->getMenu() as $n )
-		{		
-			$str .= '
-			<li'. (($n['active']) ? ' class="active"' : '') .'>
-				<a href="'. $n['url'] .'">'. ucfirst($n['label']) .'</a>
-				'. $this->renderSubmenu($n['subitems']) .'
-			</li>';
+		foreach ($this->getMenu() as $key => $n )
+		{
+			if ( $key === '--' )
+			{
+				$str .= '
+				<li class="spacer">'. (is_string($n) ? $n : '') .'</li>';
+			}
+			else
+			{
+				$str .= '
+				<li'. (($n['active']) ? ' class="active"' : '') .'>
+					<a href="'. $n['url'] .'">'. (isset($n['icon']) ? $n['icon'] . ' ' : ''). ucfirst($n['label']) .'</a>
+					'. $this->renderSubmenu($n['subitems']) .'
+				</li>';
+			}
 		}
 		
 		return $str;
@@ -76,12 +71,19 @@ class Menu {
 	 * Renders the Submenu items
 	 *
 	 */
-	private function renderSubmenu($submenu = array())
+	private function renderSubmenu($subitems = array())
 	{
 		$sub = '';
 		
-		foreach ( $submenu as $s )
+		// check if subitems is an array
+		if ( ! is_array($subitems) )
 		{
+			return $sub;
+		}
+		
+		// render each subitem
+		foreach ( $subitems as $s )
+		{		
 			$sub .= '
 			<ul>
 				<li><a href="'. $s['url'] .'">'. ucfirst($s['label']) .'</a></li>
@@ -89,6 +91,34 @@ class Menu {
 		}
 			
 		return $sub;
+	}
+	
+	/**
+	 * Returns the item URL
+	 *
+	 * @param string $str
+	 * @return str
+	 */
+	private function getItemUrl($str = '')
+	{
+		return url('content/index/'. $str);
+	}
+	
+	private function getItem($module = array())
+	{
+		// check for tables entry
+		if ( isset($module['tables']) )
+		{
+			$tables = $module['tables'];
+			$table = reset($module['tables']);
+			
+			$module['table']    = $table;
+			$module['active']   = in_array(Uri::segment(2), $tables);
+			$module['url']      = $this->getItemUrl($table);
+			$module['subitems'] = $this->getMenuSubitems($tables);
+		}
+		
+		return $module;
 	}
 	
 }
