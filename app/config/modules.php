@@ -23,6 +23,6 @@ return array(
 	'settings' => array(
 		'label'  => 'Settings',
 		'icon'   => '&#9881;',
-		'tables' => array('cms_settings', 'cms_users', 'cms_languages')
+		'tables' => array('cms_settings', 'cms_users', 'cms_users_roles', 'cms_languages')
 	)
 );

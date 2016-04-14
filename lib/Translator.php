@@ -4,12 +4,14 @@ class Translator
 {
 	/**
 	 * The translations cache array
+	 *
 	 * @var array
 	 */
 	private $translations = [];
 	
 	/**
 	 * Holds the locale (subfolder) in "translations" directory
+	 *
 	 * @var string
 	 */
 	private $locale = 'nl';
@@ -43,9 +45,21 @@ class Translator
 		// set cache if not already present
 		if ( !isset($this->translations[$file]) )
 		{
-			$this->setTranslationsCache($file);
+			$this->setTranslations($file);
 		}
 			
+		return $this->getTranslation($file, $path);
+	}
+	
+	/**
+	 * Check if the given translation key exists and 
+	 * return it's value
+	 *
+	 * @param string $path
+	 * @return string
+	 */
+	private function getTranslation($file = '', $path = '')
+	{
 		// return the translation
 		if ( isset($this->translations[$file][$path]) )
 		{
@@ -80,25 +94,25 @@ class Translator
 	 *
 	 * @return array
 	 */
-	private function setTranslationsCache($filename = '')
+	private function setTranslations($filename = '')
 	{
 		// get translations array and set cache
-		if ( $translations = $this->parseIniFile($this->getFilePath($filename)) )
+		if ( $translations = $this->parseFile($this->getFilePath($filename)) )
 		{
-			return $this->translations[$filename] = $this->flattenArray($translations);
+			return $this->translations[$filename] = $translations;
 		}
 		
 		return false;
 	}
 	
 	/**
-	 * Returns the path to *.ini file
+	 * Returns the path to translations file
 	 *
 	 * @return string
 	 */
 	private function getFilePath($filename = '')
 	{
-		return APP_PATH . 'translations/'. $this->getLocale() .'/'. $filename . '.ini';
+		return APP_PATH . 'translations/'. $this->getLocale() .'/'. $filename . '.php';
 	}
 			
 	/**
@@ -108,19 +122,19 @@ class Translator
 	 * 
 	 * @return array
 	 */
-	private function parseIniFile($filePath = '')
+	private function parseFile($filePath = '')
 	{
 		// check for file and parse .ini
 		if ( is_file($filePath) )
 		{
-			return parse_ini_file($filePath, true);
+			return $this->flattenArray(include($filePath));
 		}
 		
-		throw new Exception('Cannot locate translations file: "'. $filePath .'"');
+		throw new Exception(__CLASS__ . ': Cannot locate translations file: "'. $filePath .'"');
 	}
 	
 	/**
-	 * Recursively iterates over the array and creates a flat array with
+	 * Recursively iterates over the array and creates a flat array with keys
 	 * 
 	 * @param array $array 
 	 * @param string $separator

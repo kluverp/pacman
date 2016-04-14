@@ -40,6 +40,10 @@ a {
 	padding: 20px;
 	box-sizing: border-box;
 }
+#menu li.spacer {
+	list-style: none;
+	height: 20px;
+}
 #menu ul li > ul{
 	display: none;
 }

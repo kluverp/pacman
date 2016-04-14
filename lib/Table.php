@@ -11,11 +11,22 @@ class Table
 	/**
 	 * Data array to render
 	 *
+	 * @var array
 	 */
 	private $data = array();
 	
+	/**
+	 * Order By clause
+	 *
+	 * @var string
+	 */
 	private $orderby = '';
 	
+	/**
+	 * The order direction 
+	 *
+	 * @var string
+	 */
 	private $order = 'ASC';
 	
 	//private $page = null;
@@ -23,7 +34,8 @@ class Table
 	/**
 	 * Class constructor
 	 *
-	 * @param 
+	 * @param $config
+	 * @param $data 
 	 */
 	public function __construct($config = array(), $data = array())
 	{
@@ -35,7 +47,7 @@ class Table
 	}
 	
 	/**
-	 * Create new table
+	 * Create new table factory
 	 *
 	 */
 	public static function make($config = array(), $data = array())
@@ -43,14 +55,24 @@ class Table
 		return new self($config, $data);
 	}
 	
+	
+	/**
+	 * Renders the complete list table
+	 *
+	 * @return string
+	 */
 	public function render()
 	{	
 		return '
 <table class="list">
-	<tr>
-		'. $this->renderHeads() .'
-	</tr>
-	'. $this->renderRows() .'
+	<thead>
+		<tr>
+			'. $this->renderHeads() .'
+		</tr>
+	</thead>
+	<tbody>
+		'. $this->renderRows() .'
+	</tbody>
 </table>
 ';
 	}
@@ -64,7 +86,7 @@ class Table
 	{
 		$str = '';
 				
-		foreach (  array_keys($this->config->getColumns()) as $col )
+		foreach ( array_keys($this->config->getColumns()) as $col )
 		{
 			// check for label
 			$label = $this->config->getField($col, 'label') ? $this->config->getField($col, 'label') : '';

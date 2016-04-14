@@ -3,7 +3,9 @@
 	class View
 	{
 		/**
-		 * @var Singleton The reference to *Singleton* instance of this class
+		 * The reference to the Singleton instance of this class
+		 *
+		 * @var Singleton 
 		 */
 		private static $instance = null;
 
