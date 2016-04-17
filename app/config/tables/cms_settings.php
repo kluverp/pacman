@@ -6,12 +6,14 @@ return [
 		
 		'name'			=> 'settings',
 		'title' 		=> array('plural' => 'Settings', 'singular' => 'Setting'),
-		'description' 	=> 'Foo',
+		'description' 	=> 'Modify the sitewide settings here',
 		'rights' => [
 			'create' 	=> false,
 			'delete' 	=> false,
 			'edit'   	=> true
-		],			
+		],
+		'single_record' => true,
+		'emptyMsg' => 'test',
 		'index' => [
 			'title', 'content'
 		],
