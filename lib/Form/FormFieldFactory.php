@@ -7,6 +7,7 @@ require_once(ROOT_PATH . 'lib/Form/Fields/LatLngField.php');
 require_once(ROOT_PATH . 'lib/Form/Fields/RadioField.php');
 require_once(ROOT_PATH . 'lib/Form/Fields/SlugField.php');
 require_once(ROOT_PATH . 'lib/Form/Fields/TextareaField.php');
+require_once(ROOT_PATH . 'lib/Form/Fields/HeadingField.php');
 
 
 class FormFieldFactory

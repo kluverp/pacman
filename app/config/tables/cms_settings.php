@@ -14,44 +14,95 @@ return [
 		],
 		'single_record' => true,
 		'emptyMsg' => 'test',
-		'index' => [
-			'title', 'content'
+		'columns' => [
+			'id'  => 'text'
 		],
 		'fields' => [
-			'title' => [
-				'type' 			=> 'input',
-				'label' 		=> 'Titel',
-				'placeholder' 	=> 'Titel',
+			'id' => [
+				'type' 			=> 'hidden',
+				'label' 		=> 'ID'
 				
 			],
-			'content' => [
-				'type' 			=> 'input',
-				'label' 		=> 'Inhoud',
-				'placeholder' 	=> 'Inhoud'
+			'maintenance_mode' => [
+				'type' 			=> 'radio',
+				'label' 		=> 'Maintenance mode',
+				'options'       => 'Yes,1,ffffff|No,0,ff00ee'
 			],
-			'token' => [
-				'type' => 'hidden',
+			'app_title' => [
+				'type' => 'text',
+				'label' => 'App title'
 			],
-			'status' => [
-				'type' => 'radio',
-				'label' => 'Status',
-				'options' => "Ja,1,ffffff|Nee,0,ff00ee" // if left out, source comes from DB table
+			'meta_keywords' => [
+				'type' => 'text',
+				'label' => 'Meta Keywords'
 			],
-			'fruit' => [
-				'type' => 'select',
-				'label' => 'Welk fruit?',
-				'options' => "Bananen,1,yellow|Peren,2,green|Appels,3,red"
+			'meta_description' => [
+				'type' => 'textarea',
+				'label' => 'Meta Description'
 			],
-			'cars' => [
-				'type' => 'select',
-				'label' => 'Welke auto?',
-				'options' => "Ford,1,yellow|Mazda,2,green|Renault,3,red",
-				'allowEmpty' => true
+			'ga_tracking_code' => [
+				'type' => 'textarea',
+				'label' => 'GA Tracking code'
 			],
-			'events' => [
-				'type' => 'checkbox',
-				'label' => 'Wat gaan we doen?',
-				'options' => "Ford,1,yellow|Mazda,2,green|Renault,3,red"
+			'form_default_sender' => [
+				'type' => 'text',
+				'label' => 'Form default sender'
+			],
+			'form_default_name' => [
+				'type' => 'text',
+				'label' => 'Form default name'
+			],
+			'company' => [
+				'type' => 'text',
+				'label' => 'Company'
+			],
+			'address' => [
+				'type' => 'text',
+				'label' => 'Address'
+			],
+			'postal_code' => [
+				'type' => 'text',
+				'label' => 'Postal code'
+			],
+			'city' => [
+				'type' => 'text',
+				'label' => 'City'
+			],
+			'phone' => [
+				'type' => 'text',
+				'label' => 'Phone'
+			],
+			'phone' => [
+				'type' => 'text',
+				'label' => 'E-mail'
+			],
+			'fax' => [
+				'type' => 'text',
+				'label' => 'Fax.'
+			],
+			'latitude' => [
+				'type' => 'text',
+				'label' => 'Latitude'
+			],
+			'longitude' => [
+				'type' => 'text',
+				'label' => 'Longitude'
+			],
+			'' => [
+				'type' => 'heading',
+				'label' => 'Social Media'
+			],
+			'facebook_uri' => [
+				'type' => 'text',
+				'label' => 'Facebook URL'
+			],
+			'twitter_uri' => [
+				'type' => 'text',
+				'label' => 'Twitter URL'
+			],
+			'linkedin_uri' => [
+				'type' => 'text',
+				'label' => 'LinkedIN URL'
 			]
 		]
 	];
