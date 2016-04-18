@@ -44,7 +44,7 @@ class InputField extends Field
 	 * @return string
 	 */
 	public function getType()
-	{
+	{	
 		// check if the field type is a valid HTML5 type
 		if ( in_array($this->type, $this->valid_types) )
 		{

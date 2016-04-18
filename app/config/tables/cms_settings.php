@@ -2,10 +2,9 @@
 
 <?php
 
-return [
-		
+return [		
 		'name'			=> 'settings',
-		'title' 		=> array('plural' => 'Settings', 'singular' => 'Setting'),
+		'title' 		=> array('plural' => 'Settings', 'singular' => 'Settings'),
 		'description' 	=> 'Modify the sitewide settings here',
 		'rights' => [
 			'create' 	=> false,
@@ -20,8 +19,7 @@ return [
 		'fields' => [
 			'id' => [
 				'type' 			=> 'hidden',
-				'label' 		=> 'ID'
-				
+				'label' 		=> 'ID'				
 			],
 			'maintenance_mode' => [
 				'type' 			=> 'radio',
@@ -51,6 +49,10 @@ return [
 			'form_default_name' => [
 				'type' => 'text',
 				'label' => 'Form default name'
+			],
+			'h1' => [
+				'type' => 'heading',
+				'label' => 'Address &amp; Location'
 			],
 			'company' => [
 				'type' => 'text',
@@ -88,7 +90,7 @@ return [
 				'type' => 'text',
 				'label' => 'Longitude'
 			],
-			'' => [
+			'h2' => [
 				'type' => 'heading',
 				'label' => 'Social Media'
 			],

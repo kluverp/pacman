@@ -8,6 +8,7 @@ require_once(ROOT_PATH . 'lib/Form/Fields/RadioField.php');
 require_once(ROOT_PATH . 'lib/Form/Fields/SlugField.php');
 require_once(ROOT_PATH . 'lib/Form/Fields/TextareaField.php');
 require_once(ROOT_PATH . 'lib/Form/Fields/HeadingField.php');
+require_once(ROOT_PATH . 'lib/Form/Fields/HiddenField.php');
 
 
 class FormFieldFactory
@@ -25,8 +26,7 @@ class FormFieldFactory
 			case 'latlng':
 				$class = 'LatLng';				
 				break;
-			case 'input':
-			case 'hidden':
+			case 'input':			
 			case 'text':
 			case 'password':
 			case 'button':
@@ -44,6 +44,9 @@ class FormFieldFactory
 			case 'url':
 			case 'week':
 				$class = 'Input';
+				break;
+			case 'hidden':
+				$class = 'Hidden';
 				break;
 			default:
 				$class = ucfirst($fieldType);

@@ -20,7 +20,6 @@
 	</div>
 	
 	<div id="logout">
-		<a href="<?php echo url('settings'); ?>"><?php echo trans('app.settings.title'); ?></a>
 		<a href="<?php echo url('login/logout'); ?>">Logout</a>
 	</div>
 	
