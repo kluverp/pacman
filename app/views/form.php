@@ -2,23 +2,21 @@
 
 <p><?php echo $data['description']; ?></p>
 
+<hr class="hr">
+
 <!-- buttons top -->
 <div class="form-options form-options-top">
-	<a class="frm-options-create" href="#">Nieuw</a>  <!-- groene knop -->
-	<a class="frm-options-cancel" href="#">Cancel</a> <!-- witte knop -->
-	<a class="frm-options-save" href="#">Save</a>     <!-- blauw of groene knop -->
+	<a class="frm-options-delete" href="#">Delete</a>
 </div>
 
 
 <!-- form -->
-<form action="<?php echo $data['formAction']; ?>" method="post">
+<form id="frm" action="<?php echo $data['formAction']; ?>" method="post" enctype="multipart/form-data">
 	<?php echo $data['form']->render() ?>
-	<input type="submit" value="Opslaan" />
 </form>
 
 <!-- buttons bottom -->
 <div class="form-options form-options-bottom">
-	<a class="frm-options-delete" href="#">Delete</a> <!-- rode knop -->
-	<a class="frm-options-cancel" href="#">Cancel</a> <!-- witte knop -->
-	<a class="frm-options-save" href="#">Save</a>     <!-- blauwe knop -->
+	<a class="frm-options-cancel" href="#">Cancel</a>
+	<button class="frm-options-save" type="submit" form="frm">Save</button>
 </div>
