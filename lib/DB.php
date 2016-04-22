@@ -103,14 +103,20 @@ class DB
 	public static function prepared($query = '', $params = array(), $instance = false)
 	{
 		// get the database instance
-		$db = self::getInstance();
+		$pdo = self::getInstance($instance);
 		
 		// run prepared statement
-		$sth = $db->prepare($query);
+		$sth = $pdo->prepare($query);
 		
 		// execute
-		$result = $sth->execute($params);
-				
+		if ( !$sth->execute($params) )
+		{
+			// check for errors
+			$error = $sth->errorInfo();
+
+			throw new Exception('[' . $error[1] . '] ' . $error[2]);
+		}
+	
 		// return result
 		return $sth;
 	}
@@ -139,42 +145,33 @@ class DB
 		$keys = implode(',', array_keys($data));
 		$vals = implode(',', array_fill(0, count($keys), '?'));
 		
-		$query = 'INSERT INTO `'. $table .'` ('. $keys .') VALUES('. $vals .')';
-
-		// prepare db statement
-		$stmt = $db->prepare($query);
-
-		// run query
-		if ( !$stmt->execute(array_values($data)) )
-		{
-			return false;
-		}
-		
-		// return last insert id
-		return $db->lastInsertId();		
+		$query = 'INSERT INTO `'. $table .'` ('. $keys .') VALUES('. $vals .')';	
 	}
 	
 	public static function update($table = '', $data = array(), $instance = false)
-	{
-		// get db instance
-		$db = self::getInstance($instance);
-		
-		// set keys and values
-		$keys = implode(',', array_keys($data));
-		$vals = implode(',', array_fill(0, count($keys), '?'));
-		
+	{		
 		$id = $data['id'];
 		
-		$query = 'UPDATE `'. $table .'` SET WHERE id = '. $id;
+		// remove empty values 
+		$data = array_filter($data);
+		
+		// built mysql update string
+		$updateStr = '';
+		foreach ( $data as $key => $value )
+		{
+			$value = is_numeric($value) ? $value : '"'. $value .'"';
+			$updateStr .= $key . '='. $value . ',';
+		}
+		$updateStr = rtrim($updateStr, ',');
+		
+		// built the query
+		$query = 'UPDATE `'. $table .'` SET '. $updateStr .' WHERE id = '. $id;
 
-		// prepare db statement
-		$stmt = $db->prepare($query);
-
-		// execute the query
-		$stmt->execute();
-
-		return $stmt->rowCount();
-	}	
+		// create prepared statement
+		$pdoSth = self::prepared($query, []);
+		
+		return $pdoSth->rowCount();
+	}
 	
 	/**
 	 * Delete a record by given id

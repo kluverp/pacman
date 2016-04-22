@@ -85,7 +85,7 @@ class ContentController extends Controller
 		$id = DB::insert($this->table, array('title' => 'foobar'));
 		
 		// redirect to edit screen
-		return redirect('content/edit/'. Uri::segment(2) .'/'. $id);
+		return redirect($this->getEditUrl());
 	}
 	
 	/**
@@ -118,13 +118,15 @@ class ContentController extends Controller
 	{
 		// check if record exists
 		if ( DB::byId($this->table, $this->recordId) )
-		{			
+		{
 			// update record
 			$result = DB::update($this->table, Input::all());
+			
+			//dd($result);
 		}
 		
 		// redirect to edit screen
-		return redirect('content/edit/'. Uri::segment(2) .'/'. $this->recordId);
+		return redirect($this->getEditUrl());
 	}
 	
 	/**
@@ -141,7 +143,7 @@ class ContentController extends Controller
 		}
 			
 		// redirect to index
-		return redirect('content/index/'. Uri::segment(2));
+		return redirect('content/index/'. $this->table);
 	}
 	
 	/**
@@ -152,6 +154,16 @@ class ContentController extends Controller
 	protected function getHTMLTitle()
 	{
 		return $this->tableConfig->getTitle();
+	}
+	
+	/**
+	 * Returns the URL to the edit content action
+	 *
+	 * @return string
+	 */
+	private function getEditUrl()
+	{
+		return 'content/edit/'. $this->table .'/'. $this->recordId;
 	}
 
 
