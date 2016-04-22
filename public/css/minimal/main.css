@@ -49,6 +49,11 @@ a {
 }
   #menu ul li.active > ul{
 	  display: block;
+	  list-style: none;
+  }
+  #menu ul li.active > ul li.active {
+	font-style: italic;
+	list-style: circle;
   }
 
 #content {
@@ -142,22 +147,24 @@ table.list tr.odd {
 }
 .form-options a {
 	display: inline-block;
-	height: 30px;
-	color: white;
-	line-height: 30px;
-	padding: 0 20px;
 }
 a.frm-options-create {
-	background-color: green;
+	
 }
 a.frm-options-cancel {
-	background-color: grey;
+	
 }
 a.frm-options-delete {
-	background-color: red;
+	
 }
 a.frm-options-save {
-	background-color: blue;
+	
+}
+
+hr.hr {
+	height: 1px;
+	background: #eee;
+	border: none;
 }
 
 /**

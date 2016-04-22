@@ -37,8 +37,9 @@ class Menu {
 						
 			// built the array
 			$subitems[] = array(
-				'url'   => $this->getItemUrl($table, $config->isSingleRecord()),
-				'label' => $config->getTitle()
+				'url'    => $this->getItemUrl($table, $config->isSingleRecord()),
+				'label'  => $config->getTitle(),
+				'active' => Uri::segment(2) == $table
 			);
 		}
 		
@@ -96,7 +97,9 @@ class Menu {
 		{		
 			$sub .= '
 			<ul>
-				<li><a href="'. $s['url'] .'">'. ucfirst($s['label']) .'</a></li>
+				<li'. (($s['active']) ? ' class="active"' : '') .'>
+					<a href="'. $s['url'] .'">'. ucfirst($s['label']) .'</a>
+				</li>
 			</ul>';
 		}
 			

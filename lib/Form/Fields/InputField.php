@@ -27,7 +27,7 @@ class InputField extends Field
 	{
 		$attsStr = $this->getAtts(array(
 			'type'        => $this->getType(),
-			'id'          => $this->getName(),
+			'id'          => $this->getId(),
 			'name'        => $this->getName(),
 			'value'       => $this->getValue(),
 			'placeholder' => $this->getPlaceholder(),

@@ -51,7 +51,7 @@ abstract class Field
 	{
 	return '
 <div class="field">
-	<label for="'. $this->getName() .'">'. $this->getLabel() . ($this->getRequired() ? '*' : '') .'</label>
+	<label for="'. $this->getId() .'">'. $this->getLabel() . ($this->getRequired() ? '*' : '') .'</label>
 	'. $input .'
 </div>';
 	}
@@ -103,9 +103,17 @@ abstract class Field
 	 *
 	 * @return string
 	 */
-	public function getName()
+	public function getId()
 	{
 		return $this->form_prefix . $this->name;
+	}
+	
+	/**
+	 * Return the fieldname
+	 */
+	public function getName()
+	{
+		return $this->name;
 	}
 	
 	/**

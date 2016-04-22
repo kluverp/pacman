@@ -82,7 +82,7 @@ class ContentController extends Controller
 	public function postCreate()
 	{
 		// store record
-		$id = DB::insert(Uri::segment(2), array('title' => 'foobar'));
+		$id = DB::insert($this->table, array('title' => 'foobar'));
 		
 		// redirect to edit screen
 		return redirect('content/edit/'. Uri::segment(2) .'/'. $id);
@@ -100,26 +100,37 @@ class ContentController extends Controller
 		{
 			dd('Record not found');
 		}
-						
-		// create the form
-		$form = Form::make($this->tableConfig->getFields(), $record);
 
 		// load the view
 		return $this->output('form', array(
 			'title'       => $this->tableConfig->getTitle('singular'),
 			'description' => $this->tableConfig->getDescription(),
-			'form'        => $form,
-			'formAction'  => url(array($this->action, $this->table, $record['id'])),
+			'form'        => Form::make($this->tableConfig->getFields(), $record),
+			'formAction'  => url(array('content', $this->action, $this->table, $record['id'])),
 		));
-		
 	}
 	
-	
+	/**
+	 * Handles the POST action on edit forms
+	 *
+	 */
 	public function postEdit()
 	{
+		// check if record exists
+		if ( DB::byId($this->table, $this->recordId) )
+		{			
+			// update record
+			$result = DB::update($this->table, Input::all());
+		}
 		
+		// redirect to edit screen
+		return redirect('content/edit/'. Uri::segment(2) .'/'. $this->recordId);
 	}
 	
+	/**
+	 * Deletes the current record
+	 *
+	 */
 	public function getDelete()
 	{
 		// check if user is allowed to delete from this table

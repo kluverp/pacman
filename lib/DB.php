@@ -154,6 +154,28 @@ class DB
 		return $db->lastInsertId();		
 	}
 	
+	public static function update($table = '', $data = array(), $instance = false)
+	{
+		// get db instance
+		$db = self::getInstance($instance);
+		
+		// set keys and values
+		$keys = implode(',', array_keys($data));
+		$vals = implode(',', array_fill(0, count($keys), '?'));
+		
+		$id = $data['id'];
+		
+		$query = 'UPDATE `'. $table .'` SET WHERE id = '. $id;
+
+		// prepare db statement
+		$stmt = $db->prepare($query);
+
+		// execute the query
+		$stmt->execute();
+
+		return $stmt->rowCount();
+	}	
+	
 	/**
 	 * Delete a record by given id
 	 *

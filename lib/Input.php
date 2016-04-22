@@ -44,7 +44,17 @@ class Input
 		return $default;
 	}
 	
-	private static clean($value = '')
+	/**
+	 * Returns all Request data
+	 *
+	 * @return array
+	 */
+	public static function all()
+	{
+		return $_REQUEST;	
+	}
+	
+	private static function clean($value = '')
 	{
 		
 	}

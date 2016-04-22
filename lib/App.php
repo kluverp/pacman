@@ -2,6 +2,7 @@
 
 require_once(LIB_PATH . 'Config/Config.php');
 require_once(LIB_PATH . 'Uri.php');
+require_once(LIB_PATH . 'Input.php');
 
 class App
 {
@@ -10,6 +11,7 @@ class App
 	 */
 	public $router;
 	public $translator;
+	public $input;
 	
 	/**
 	 * Init the Application
@@ -20,6 +22,7 @@ class App
 		// create new router obj
 		$this->router     = new Router();
 		$this->translator = new Translator();
+		$this->input      = Input::getInstance();
 		
 		// set database
 		DB::setInstance('default', MYSQL_HOST, MYSQL_SCHEMA, MYSQL_USERNAME, MYSQL_PASSWORD);
