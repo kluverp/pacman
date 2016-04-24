@@ -115,14 +115,15 @@ table.list tr.odd {
 	margin: 0 0 10px 0;
 }
 .field > label:first-child {
-	display: block;
+	display: inline-block;
+    width: 160px;
+    vertical-align: top;
 }
 
 .field input[type="text"],
 .field select,
 .field textarea {
 	width: 350px;
-	border: 1px solid grey;
 	box-sizing: border-box;
 	padding: 2px 5px;
 }
@@ -144,21 +145,23 @@ table.list tr.odd {
 
 .form-options {
 	margin: 20px 0;
+	width: 515px;
+	overflow: hidden;
 }
 .form-options a {
 	display: inline-block;
 }
-a.frm-options-create {
+.frm-options-create {
 	
 }
-a.frm-options-cancel {
+.frm-options-cancel {
 	
 }
-a.frm-options-delete {
-	
+.frm-options-delete {
+	float: right;
 }
-a.frm-options-save {
-	
+.frm-options-save {
+	float: right;
 }
 
 hr.hr {

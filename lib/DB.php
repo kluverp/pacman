@@ -121,8 +121,14 @@ class DB
 		return $sth;
 	}
 	
+	/**
+	 * Fetch a database record
+	 *
+	 * @return mixed
+	 */
 	public static function fetch($query = '', $params = array(), $instance = false)
 	{
+		// execute query, fetch result
 		if ( $result = self::prepared($query, $params) )
 		{
 			return $result->fetch();
@@ -134,7 +140,11 @@ class DB
 	/**
 	 * Insert data to db
 	 *
+	 * @param string $table
+	 * @param array $data
+	 * @param string $instance
 	 *
+	 * @return int
  	 */
 	public static function insert($table = '', $data = array(), $instance = false)
 	{
@@ -145,31 +155,38 @@ class DB
 		$keys = implode(',', array_keys($data));
 		$vals = implode(',', array_fill(0, count($keys), '?'));
 		
-		$query = 'INSERT INTO `'. $table .'` ('. $keys .') VALUES('. $vals .')';	
+		// built query
+		$query = 'INSERT INTO `'. $table .'` ('. $keys .') VALUES('. $vals .')';
+		
+		// create prepared statement
+		$pdoSth = self::prepared($query, []);
+		
+		// return # of rows affected
+		//return $pdoSth->rowCount();
 	}
 	
+	/**
+	 * Updates a database record
+	 *
+	 */
 	public static function update($table = '', $data = array(), $instance = false)
-	{		
-		$id = $data['id'];
+	{
+		// check for primary key id
+		if ( ! isset($data['id']) )
+		{
+			throw new Exception('Cannot update record without ID!');
+		}
 		
 		// remove empty values 
 		$data = array_filter($data);
-		
-		// built mysql update string
-		$updateStr = '';
-		foreach ( $data as $key => $value )
-		{
-			$value = is_numeric($value) ? $value : '"'. $value .'"';
-			$updateStr .= $key . '='. $value . ',';
-		}
-		$updateStr = rtrim($updateStr, ',');
-		
+			
 		// built the query
-		$query = 'UPDATE `'. $table .'` SET '. $updateStr .' WHERE id = '. $id;
+		$query = 'UPDATE `'. $table .'` SET '. self::arrayToUpdateStr($data) .' WHERE id = '. $data['id'] .' LIMIT 1';
 
 		// create prepared statement
 		$pdoSth = self::prepared($query, []);
 		
+		// return # of rows affected
 		return $pdoSth->rowCount();
 	}
 	
@@ -189,5 +206,25 @@ class DB
 
 		// run prepared statement
 		return self::prepared($sql, array($table, $id));
+	}
+	
+	/**
+	 * Convert a key=>value array to an MySQL UPDATE string
+	 *
+	 * @return string
+	 */
+	private static function arrayToUpdateStr($data = array())
+	{
+		$updateStr = '';
+		
+		// built the string as $key="$value",
+		foreach ( $data as $key => $value )
+		{
+			$value = is_numeric($value) ? $value : '"'. $value .'"';
+			$updateStr .= $key . '='. $value . ',';
+		}
+		
+		// return string and strip of last ","
+		return rtrim($updateStr, ',');
 	}
 }

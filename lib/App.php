@@ -1,5 +1,7 @@
 <?php
 
+//namespace Pacman;
+
 require_once(LIB_PATH . 'Config/Config.php');
 require_once(LIB_PATH . 'Uri.php');
 require_once(LIB_PATH . 'Input.php');
