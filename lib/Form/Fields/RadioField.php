@@ -4,14 +4,12 @@ class RadioField extends SelectField
 {
 	/**
 	 * Renders the field
+	 *
+	 * @return string
 	 */
 	public function render()
 	{
-		return '
-<div class="field">
-	<label for="'. $this->getName() .'">'. $this->getLabel() .'</label>
-	'. $this->renderOptions() .'
-</div>';
+		return $this->wrap($this->renderOptions());
 	}
 	
 	/**
@@ -26,8 +24,8 @@ class RadioField extends SelectField
 		foreach ( $this->options as $option )
 		{
 			$id = $this->name . '_' . $i;
-			
-			if ( !$this->value && $i == 0 || $this->value == $option['value']) {
+
+			if ( $this->value == null && $i == 0 || $this->value == $option['value']) {
 				$checked = ' checked="checked"';
 			}
 			else {

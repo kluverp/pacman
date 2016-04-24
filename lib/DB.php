@@ -178,8 +178,10 @@ class DB
 		}
 		
 		// remove empty values 
-		$data = array_filter($data);
-			
+		$data = array_filter($data, function($v){
+			return $v != '';
+		});
+				
 		// built the query
 		$query = 'UPDATE `'. $table .'` SET '. self::arrayToUpdateStr($data) .' WHERE id = '. $data['id'] .' LIMIT 1';
 
