@@ -70,7 +70,7 @@ class ContentController extends Controller
 			'form'        => $form,
 			'title'       => $this->tableConfig->getTitle('singular'),
 			'description' => $this->tableConfig->getDescription(),
-			'formAction'  => url(Uri::segment(0) .'/'. Uri::segment(1) .'/'. Uri::segment(2))
+			'formAction'  => $this->getActionUrl()
 		));
 	}
 	
@@ -85,7 +85,7 @@ class ContentController extends Controller
 		$id = DB::insert($this->table, array('title' => 'foobar'));
 		
 		// redirect to edit screen
-		return redirect($this->getEditUrl());
+		return redirect($this->getActionUrl());
 	}
 	
 	/**
@@ -106,7 +106,7 @@ class ContentController extends Controller
 			'title'       => $this->tableConfig->getTitle('singular'),
 			'description' => $this->tableConfig->getDescription(),
 			'form'        => Form::make($this->tableConfig->getFields(), $record),
-			'formAction'  => url(array('content', $this->action, $this->table, $record['id'])),
+			'formAction'  => $this->getActionUrl(),
 		));
 	}
 	
@@ -126,7 +126,7 @@ class ContentController extends Controller
 		}
 		
 		// redirect to edit screen
-		return redirect($this->getEditUrl());
+		return redirect($this->getActionUrl('edit'));
 	}
 	
 	/**
@@ -161,9 +161,12 @@ class ContentController extends Controller
 	 *
 	 * @return string
 	 */
-	private function getEditUrl()
+	private function getActionUrl($action = '')
 	{
-		return 'content/edit/'. $this->table .'/'. $this->recordId;
+		// if not given, default to current action
+		$action = $action ? $action : $this->action;
+		
+		return 'content/'. $action .'/'. $this->table .'/'. $this->recordId;
 	}
 
 

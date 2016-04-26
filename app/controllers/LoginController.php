@@ -21,7 +21,7 @@ class LoginController extends BaseController
 	 */
 	public function getIndex()
 	{	
-		return $this->output('login');
+		return $this->output('login/login');
 	}
 	
 	/**
@@ -45,5 +45,25 @@ class LoginController extends BaseController
 	public function getLogout()
 	{
 		return Auth::logout();
+	}
+	
+	/**
+	 * Show password-forgotten form
+	 *
+	 * @return view
+	 */
+	public function getForgotten()
+	{
+		return $this->output('login/forgotten');
+	}
+	
+	/**
+	 * Handles the password forgotten form
+	 *
+	 * @return view
+	 */
+	public function postForgotten()
+	{
+		
 	}
 }

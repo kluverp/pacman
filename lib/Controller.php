@@ -67,6 +67,11 @@ class Controller
 	{
 		// set template
 		$this->template = realpath(view($template . '.php'));
+		
+		if ( ! is_file($this->template) )
+		{
+			throw new Exception(__FILE__ . ' => template file \''. $this->template .'\' does not exists!');
+		}
 					
 		// set response code
 		http_response_code($response_code);

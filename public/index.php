@@ -21,6 +21,9 @@ if ( ! is_file(ROOT_PATH . '.env.php') )
 	exit('".env.php" file not found! Please add to root of project!');
 }
 
+// register autoloader
+require_once(__DIR__ . '/../bootstrap/autoload.php');
+
 // require the resources
 require_once(ROOT_PATH . '.env.php');
 require_once(LIB_PATH . 'helpers.php');
@@ -37,10 +40,3 @@ require_once(LIB_PATH . 'App.php');
 $app = new App();
 $app->init();
 $app->run();
-
-
-//$f = new Model();
-//$f->title = 'HALLO WERELD';
-//echo $f->title('<b>%s</b>');
-//echo $f->title('<h1>%s</h1>');
-
