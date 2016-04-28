@@ -125,11 +125,7 @@ class Controller
 	 */
 	public function getBreadcrumbs()
 	{
-		return array(
-			'foobar' => 'Projecten',
-			'1'      => 'Project X',
-			'2'      => 'Dit is het item'
-		);
+		return [];
 	}
 	
 	/**

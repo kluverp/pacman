@@ -1,9 +1,11 @@
 <?php
 
-require_once(ROOT_PATH . 'lib/Table.php');
-require_once(ROOT_PATH . 'lib/Form/Form.php');
+require_once(LIB_PATH . 'Table.php');
+require_once(LIB_PATH . 'Form/Form.php');
+require_once(LIB_PATH . 'Breadcrumb.php');
+require_once(CONTROLLER_PATH . 'BaseController.php');
 
-class ContentController extends Controller
+class ContentController extends BaseController
 {
 	/**
 	 * The action URI part
@@ -35,6 +37,9 @@ class ContentController extends Controller
 	 */
 	public function __construct()
 	{
+		// call parent
+		parent::__construct();
+		
 		// set uri params
 		$this->action   = Uri::segment(1);
 		$this->table    = Uri::segment(2);
@@ -167,6 +172,13 @@ class ContentController extends Controller
 		$action = $action ? $action : $this->action;
 		
 		return 'content/'. $action .'/'. $this->table .'/'. $this->recordId;
+	}
+	
+	public function getBreadcrumbs()
+	{
+		$b = new Breadcrumb($this->tableConfig);
+			
+		return $b->getTrail();
 	}
 
 
