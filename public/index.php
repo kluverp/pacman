@@ -37,6 +37,6 @@ require_once(LIB_PATH . 'Translator.php');
 require_once(LIB_PATH . 'App.php');
 
 // start the app
-$app = new App();
+$app = new App();	
 $app->init();
 $app->run();
