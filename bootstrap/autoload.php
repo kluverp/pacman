@@ -1,18 +1,36 @@
 <?php
 
-function pacman_cms_autoload($classPath)
+/**
+ * Register the autoloader for the CMS classes.
+ *
+ * @param string $classPath The fully-qualified class name.
+ *
+ * @return void
+ */
+spl_autoload_register(function($classPath)
 {
-	exit($classPath);
+	$prefix = 'Pacman';
+	
+	// does the class use the namespace prefix?
+    $len = strlen($prefix);	
+    if (strncmp($prefix, $classPath, $len) !== 0)
+	{	
+        // no, move to the next registered autoloader
+        return false;
+    }
 
-  $filePath = dirname(__FILE__) . '/' . implode('/', $classPath) . '.php';
-  
-  
+    // get the relative class name
+    $relativePath = substr($classPath, $len);
+ 
+    // replace the namespace prefix with the base directory, replace namespace
+    // separators with directory separators in the relative class name, append
+    // with .php
+    $file = rtrim(ROOT_PATH, '/\\') . str_replace('\\', '/', $relativePath) . '.php';
   
 	// require the file if found
-	if (is_file($filePath))
+	if (is_file($file))
 	{
-		require_once($filePath);
+		require_once($file);
 	}
-}
+});
 
-spl_autoload_register('pacman_cms_autoload');
