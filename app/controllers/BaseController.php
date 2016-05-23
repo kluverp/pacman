@@ -1,8 +1,14 @@
 <?php
 
-require_once(ROOT_PATH . 'lib/Auth.php');
-require_once(ROOT_PATH . 'lib/Crypt.php');
+namespace Pacman\app\controllers;
 
+use Pacman\lib\Controller;
+
+/**
+ * BaseController
+ *
+ * Loads and initializes all defeault Controller actions
+ */
 class BaseController extends Controller
 {
 	protected $breadcrumb = null;

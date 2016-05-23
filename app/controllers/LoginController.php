@@ -1,7 +1,12 @@
 <?php
 
-require_once(APP_PATH . 'controllers/BaseController.php');
+namespace Pacman\app\controllers;
 
+/**
+ * Login Controller
+ *
+ * Shows the login- and password forgotten screens
+ */
 class LoginController extends BaseController
 {	
 	/**
