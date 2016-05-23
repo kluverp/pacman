@@ -1,5 +1,7 @@
 <?php
 
+namespace Pacman\lib;
+
 class Controller
 {
 	protected $HTMLTitle = '';

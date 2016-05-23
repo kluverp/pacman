@@ -14,6 +14,8 @@ class Router
 		{
 			$controllerName = 'Base';
 		}
+		
+		$controllerName = 'Pacman\app\controllers\\' . $controllerName;
 
 		// get path to controller class
 		$controllerName .= 'Controller';
@@ -22,15 +24,10 @@ class Router
 		// check if the controller file exists
 		if ( ! is_file($controllerPath) )
 		{
-			$controllerName = 'BaseController';
-			$controllerPath = CONTROLLER_PATH . $controllerName . '.php';
-			
-			throw new Exception('Controller not found', 200);
+			throw new Exception('Controller "'. $controllerName .'" not found', 200);
 		}
 
-		// require the Controller class
-		require_once($controllerPath);
-
+		// return new instance of controller
 		return new $controllerName();
 	}
 	
