@@ -1,14 +1,8 @@
 <?php
 
 
-class Uri
+class Uri extends Singleton
 {
-	/**
-	 * Holds our Singleton obj
-	 * @var obj
-	 */
-	private static $instance = null;
-	
 	/**
 	 * The URI segments array
 	 * @var array
@@ -36,23 +30,7 @@ class Uri
 		// create the uri segments array
 		$this->setSegments();
 	}
-	
-	/**
-	 * Returns the Singleton instace
-	 *
-	 * @return Obj
-	 */
-	public static function getInstance()
-	{
-		// check for new instance
-		if ( self::$instance === null )
-		{
-			self::$instance = new self(FC_PATH);
-		}
 		
-		return self::$instance;
-	}
-	
 	/**
 	 * Sets the uri segments array
 	 *

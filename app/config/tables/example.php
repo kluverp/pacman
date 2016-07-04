@@ -23,6 +23,11 @@
 | <fieldname>[placeholder]	Optional placeholder
 | <fieldname>[list]			Show the column in list yes/no
 |
+|
+| status - online (1), offline (2), preview (3)
+| order - 
+|
+
 */
 
 return [
@@ -36,7 +41,7 @@ return [
 		'bulk_actions' => true,
 		'emptyMsg' => 'my empty message',
 		'index' => [
-			'active'  => 'active',
+			'status'  => 'status',
 			'title'   => '',
 			'date'    => 'date|%d-%m-%Y',
 			'content' => 'ellipsis|10'
@@ -46,9 +51,9 @@ return [
 			}*/
 		],
 		'fields' => [
-			'active' => [
+			'status' => [
 				'type' => 'text',
-				'label' => 'Actief'
+				'label' => 'Status'
 			],
 			'title' => [
 				'type' 			=> 'text',

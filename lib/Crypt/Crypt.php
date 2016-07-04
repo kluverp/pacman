@@ -1,6 +1,6 @@
 <?php
 
-class Crypt
+class Crypt extends Singleton
 {
 	/**
 	 * Encrypt the string

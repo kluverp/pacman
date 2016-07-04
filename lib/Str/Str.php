@@ -1,6 +1,6 @@
 <?php
 
-class Str
+final class Str
 {
 	/**
 	 * Convert a value to camel case.

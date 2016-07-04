@@ -1,6 +1,5 @@
 <?php
-
-class Input
+class Singleton
 {
     /**
      * @var Singleton The reference to *Singleton* instance of this class
@@ -20,44 +19,6 @@ class Input
         
         return static::$instance;
     }
-	
-	/**
-	 * Returns the input variable in order of precedence (GET, POST, COOKIE)
-	 *
-	 * @return mixed
-	 */
-	public static function get($key = '', $default = false)
-	{
-		if ( isset($_GET[$key]) )
-		{
-			return self::clean($_GET[$key]);
-		}
-		elseif ( isset($_POST[$key]) )
-		{
-			return self::clean($_POST[$key]);
-		}
-		elseif(isset($_COOKIE[$key]))
-		{
-			return self::clean($_COOKIE[$key]);
-		}
-		
-		return $default;
-	}
-	
-	/**
-	 * Returns all Request data
-	 *
-	 * @return array
-	 */
-	public static function all()
-	{
-		return $_REQUEST;	
-	}
-	
-	private static function clean($value = '')
-	{
-		
-	}
 
     /**
      * Protected constructor to prevent creating a new instance of the

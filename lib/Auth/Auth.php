@@ -1,17 +1,12 @@
 <?php
 
-class Auth
+class Auth extends Singleton
 {
 	private static $user = null;
 	
 	private static $table = 'cms_users';
 	private static $usernameCol = 'email';
 	private static $passwordCol = 'password';
-	
-	public function __construct()
-	{
-		
-	}
 	
 	public static function user()
 	{
