@@ -1,10 +1,11 @@
 <?php
+
 class Singleton
 {
     /**
      * @var Singleton The reference to *Singleton* instance of this class
      */
-    private static $instance;
+    protected static $instance = null;
     
     /**
      * Returns the *Singleton* instance of this class.
@@ -13,7 +14,8 @@ class Singleton
      */
     public static function getInstance()
     {
-        if (null === static::$instance) {
+        if (static::$instance === null)
+		{
             static::$instance = new static();
         }
         
