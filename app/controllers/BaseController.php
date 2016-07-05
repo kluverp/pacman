@@ -3,6 +3,7 @@
 namespace Pacman\app\controllers;
 
 use Pacman\lib\Controller;
+use Pacman\lib\Auth\Auth;
 
 /**
  * BaseController

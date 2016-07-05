@@ -1,5 +1,7 @@
 <?php 
 
+namespace Pacman\lib;
+
 class Menu {
 
 	public function __construct($config = array())

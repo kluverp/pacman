@@ -1,9 +1,18 @@
 <?php
 
+namespace Pacman\lib;
+
+/**
+ * Singleton class
+ *
+ * Used by all other Singletons as a Base Class
+ */
 class Singleton
 {
     /**
-     * @var Singleton The reference to *Singleton* instance of this class
+	 * The reference to *Singleton* instance of this class
+	 *
+     * @var Singleton
      */
     protected static $instance = null;
     

@@ -1,5 +1,7 @@
 <?php
 
+namespace Pacman\lib\DB;
+
 class DB
 {
 	/**
@@ -58,7 +60,7 @@ class DB
 	public static function setInstance($key = '', $host = '', $schema = '', $username = '', $password = '')
 	{
 		try {
-			$pdo = new PDO('mysql:host='. $host .';dbname='. $schema, $username, $password);
+			$pdo = new \PDO('mysql:host='. $host .';dbname='. $schema, $username, $password);
 		} catch (PDOException $e) {
 			exit("Error!: " . $e->getMessage() . "<br/>");
 		}

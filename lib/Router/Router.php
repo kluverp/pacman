@@ -1,5 +1,9 @@
 <?php
 
+namespace Pacman\lib\Router;
+
+use Pacman\lib\Uri\Uri;
+
 class Router 
 {	
 	/**
@@ -15,17 +19,17 @@ class Router
 			$controllerName = 'Base';
 		}
 		
-		$controllerName = 'Pacman\app\controllers\\' . $controllerName;
+		$controllerName = '\Pacman\app\controllers\\' . $controllerName;
 
 		// get path to controller class
 		$controllerName .= 'Controller';
 		$controllerPath = CONTROLLER_PATH . $controllerName . '.php';
 
 		// check if the controller file exists
-		if ( ! is_file($controllerPath) )
+		/*if ( ! is_file($controllerPath) )
 		{
-			throw new Exception('Controller "'. $controllerName .'" not found', 200);
-		}
+			throw new \Exception('Controller "'. $controllerName .'" not found', 200);
+		}*/
 
 		// return new instance of controller
 		return new $controllerName();
@@ -44,7 +48,7 @@ class Router
 		// check for valid method
 		if ( method_exists( $controller, $method ) )
 		{
-			$reflection = new ReflectionMethod($controller, $method);
+			$reflection = new \ReflectionMethod($controller, $method);
 			
 			if ($reflection->isPublic())
 			{

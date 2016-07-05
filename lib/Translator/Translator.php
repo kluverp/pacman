@@ -1,6 +1,8 @@
 <?php
 
-class Translator 
+namespace Pacman\lib\Translator;
+
+class Translator
 {
 	/**
 	 * The translations cache array
@@ -15,7 +17,6 @@ class Translator
 	 * @var string
 	 */
 	private $locale = 'nl';
-	
 
 	/**
 	 * Class Constructor
@@ -146,8 +147,8 @@ class Translator
 		$result = [];
 		
 		// init recursive iterator
-		$arrayIterator = new RecursiveArrayIterator($array);
-		$iterator = new RecursiveIteratorIterator($arrayIterator, RecursiveIteratorIterator::SELF_FIRST);
+		$arrayIterator = new \RecursiveArrayIterator($array);
+		$iterator = new \RecursiveIteratorIterator($arrayIterator, \RecursiveIteratorIterator::SELF_FIRST);
 
 		// create flat array separated by $separator
 		foreach($iterator as $key => $value)

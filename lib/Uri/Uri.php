@@ -1,5 +1,8 @@
 <?php
 
+namespace Pacman\lib\Uri;
+
+use Pacman\lib\Singleton;
 
 class Uri extends Singleton
 {
@@ -22,10 +25,10 @@ class Uri extends Singleton
 	 * @param $FC_PATH The absolute path to the Front-Controller file. This so we can
 	 * built the relative path to the web root.
 	 */
-	public function __construct($FC_PATH = '')
+	public function __construct()
 	{	
 		// set Front-Controller path
-		$this->setFC_PATH($FC_PATH);
+		$this->setFC_PATH(FC_PATH);
 
 		// create the uri segments array
 		$this->setSegments();
@@ -36,7 +39,7 @@ class Uri extends Singleton
 	 *
 	 * @return array
 	 */
-	public function setSegments()
+	private function setSegments()
 	{
 		// set documentRoot
 		$documentRoot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
@@ -56,7 +59,7 @@ class Uri extends Singleton
 	 *
 	 * @return array
 	 */
-	public static function getSegments()
+	public static function segments()
 	{
 		return self::getInstance()->segments;
 	}

@@ -1,6 +1,7 @@
 <?php
 
-require_once(ROOT_PATH . 'lib/Str.php');
+//require_once(ROOT_PATH . 'lib/Str.php');
+use PacMan\lib\Str\Str;
 
 if ( ! function_exists('dd'))
 {
@@ -162,6 +163,6 @@ if (! function_exists('trans'))
     {
 		global $app;
 				
-		return $app->translator->translate($key, $locale);
+		return $app->lib('translator')->translate($key, $locale);
     }
 }

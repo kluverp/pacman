@@ -1,9 +1,9 @@
 <?php
 
-// Start session
+// start session
 session_start();
 
-// Paths
+// paths
 define('FC_PATH', dirname(str_replace('\\', '/', __DIR__)));
 define('ROOT_PATH', realpath(__DIR__ .'/../') . '\\');
 define('LIB_PATH', ROOT_PATH .'lib/');
@@ -22,21 +22,13 @@ if ( ! is_file(ROOT_PATH . '.env.php') )
 }
 
 // register autoloader
-require_once(__DIR__ . '/../bootstrap/autoload.php');
+require_once(ROOT_PATH . 'bootstrap/autoload.php');
 
 // require the resources
 require_once(ROOT_PATH . '.env.php');
 require_once(LIB_PATH . 'helpers.php');
-require_once(LIB_PATH . 'DB.php');
-require_once(LIB_PATH . 'Model.php');
-require_once(LIB_PATH . 'Controller.php');
-require_once(LIB_PATH . 'Menu.php');
-require_once(LIB_PATH . 'Router.php');
-require_once(LIB_PATH . 'View.php');
-require_once(LIB_PATH . 'Translator.php');
-require_once(LIB_PATH . 'App.php');
 
 // start the app
-$app = new App();	
+$app = new Pacman\lib\App();
 $app->init();
 $app->run();

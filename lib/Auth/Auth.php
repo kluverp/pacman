@@ -1,5 +1,9 @@
 <?php
 
+namespace Pacman\lib\Auth;
+
+use Pacman\lib\Singleton;
+
 class Auth extends Singleton
 {
 	private static $user = null;

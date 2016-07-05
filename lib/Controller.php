@@ -2,6 +2,9 @@
 
 namespace Pacman\lib;
 
+use Pacman\lib\View\View;
+use Pacman\lib\Menu;
+
 class Controller
 {
 	protected $HTMLTitle = '';

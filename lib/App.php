@@ -1,16 +1,30 @@
 <?php
 
-//namespace Pacman;
+namespace Pacman\lib;
 
-require_once(LIB_PATH . 'Config/Config.php');
-require_once(LIB_PATH . 'Uri.php');
-require_once(LIB_PATH . 'Input.php');
+use Pacman\lib\DB\DB;
 
 class App
 {
+	/**
+	 * The router instance
+	 */
 	private $router = null;
+	
+	/**
+	 * The translator instance
+	 */
 	private $translator = null;
+	
+	/**
+	 * The input instance
+	 */
 	private $input = null;
+	
+	/**
+	 * Application start time
+	 */
+	private $startTime = null;
 	
 	/**
 	 * Class Constructor
@@ -21,7 +35,7 @@ class App
 	}
 	
 	/**
-	 * The router instance
+	 * The instance container
 	 *
 	 * @var array
 	 */
@@ -30,15 +44,16 @@ class App
 	/**
 	 * Init the Application
 	 *
+	 * @return void
 	 */
 	public function init()
 	{
 		// create new objects
-		$this->lib('router', new Router());
-		$this->lib('translator', new Translator());
-		$this->lib('input', Input::getInstance());
+		$this->lib('router', new \Pacman\lib\Router\Router());
+		$this->lib('translator', new \Pacman\lib\Translator\Translator());
+		//$this->lib('input', Input::getInstance());
 		
-		// set database
+		// set database connection
 		DB::setInstance('default', MYSQL_HOST, MYSQL_SCHEMA, MYSQL_USERNAME, MYSQL_PASSWORD);
 	}
 	
@@ -71,6 +86,7 @@ class App
 	{
 		try
 		{
+			// try to route the page
 			$this->lib('router')->route();
 		}
 		catch (Exception $e )
