@@ -2,6 +2,8 @@
 
 namespace Pacman\app\controllers;
 
+use Pacman\lib\Auth\Auth;
+
 /**
  * Login Controller
  *

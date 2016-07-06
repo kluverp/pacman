@@ -3,6 +3,7 @@
 namespace Pacman\lib\Router;
 
 use Pacman\lib\Uri\Uri;
+use Pacman\lib\Str\Str;
 
 class Router 
 {	

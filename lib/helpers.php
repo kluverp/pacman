@@ -157,6 +157,9 @@ if ( ! function_exists('redirect') )
 	}
 }
 
+/**
+ * Call a translation from the translation file
+ */
 if (! function_exists('trans'))
 {
     function trans($key = false, $locale = false)
@@ -165,4 +168,18 @@ if (! function_exists('trans'))
 				
 		return $app->lib('translator')->translate($key, $locale);
     }
+}
+
+/**
+ * Echo's a string to screen
+ *
+ * @param string $str
+ * @return void
+ */
+if ( !function_exists('e') )
+{
+	function e($str = '')
+	{
+		echo $str;
+	}
 }

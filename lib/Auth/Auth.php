@@ -3,6 +3,7 @@
 namespace Pacman\lib\Auth;
 
 use Pacman\lib\Singleton;
+use Pacman\lib\DB\DB;
 
 class Auth extends Singleton
 {

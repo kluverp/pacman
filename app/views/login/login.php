@@ -23,7 +23,7 @@
 				<div class="field">
 					<input type="submit" value="<?php echo trans('app.login.submit'); ?>" />
 				</div>
-				<a href="<?php echo url('login/forgotpw'); ?>" style="float: right"><?php echo trans('app.login.password-forgotten'); ?></a>
+				<a href="<?php echo url('login/forgotten'); ?>" style="float: right"><?php echo trans('app.login.password-forgotten'); ?></a>
 			</fieldset>
 		</form>
 	</div>

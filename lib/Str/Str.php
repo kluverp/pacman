@@ -1,5 +1,12 @@
 <?php
 
+namespace Pacman\lib\Str;
+
+/**
+ * Str
+ *
+ * Contains various string functions to be used
+ */
 final class Str
 {
 	/**

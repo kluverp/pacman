@@ -31,7 +31,7 @@ class App
 	 */
 	public function __construct()
 	{
-		$this->startTime = microtime();
+		$this->startTime = microtime(true);
 	}
 	
 	/**
@@ -100,5 +100,29 @@ class App
 					exit(sprintf('Error: "%s"', $e->getMessage()));
 			}
 		}
+	
+		// show stats if in debug mode
+		if ( defined('APP_DEBUG') && APP_DEBUG === true )
+		{
+			$this->stats();
+		}
+		
+	}
+	
+	private function stats()
+	{
+		$totalTime = round((microtime(true) - $this->startTime), 2);
+		$memory = memory_get_usage() / 1024;
+		
+		printf('
+		<pre>
+		================================================================================
+		*                                Stats                                         *
+		================================================================================
+		Execution time:		%s s
+		--------------------------------------------------------------------------------
+		Memory: 		%s kb		
+		--------------------------------------------------------------------------------
+		</pre>', $totalTime, $memory);
 	}
 }
