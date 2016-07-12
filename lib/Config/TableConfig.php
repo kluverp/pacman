@@ -1,5 +1,7 @@
 <?php
 
+namespace Pacman\lib\Config;
+
 class TableConfig
 {
 	/**

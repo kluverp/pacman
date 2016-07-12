@@ -1,24 +1,33 @@
 <?php 
 
-namespace Pacman\lib;
+namespace Pacman\lib\Menu;
 
-class Menu {
+use Pacman\lib\Config\Config;
+use Pacman\lib\Uri\Uri;
 
-	public function __construct($config = array())
-	{
-		
-	}
-
+class Menu
+{
+	/**
+	 * Factory method
+	 *
+	 * @return Menu object
+	 */
 	public static function make()
 	{
 		return new self();
 	}
 	
+	/**
+	 * Returns array with menu structure
+	 *
+	 * @return array
+	 */
 	public function getMenu()
 	{
 		$menu = array();
 		$modules = Config::get('modules');
-				
+
+		// loop over each module and get items
 		foreach ( $modules as $key => $module )
 		{	
 			// get menu item array
@@ -28,7 +37,46 @@ class Menu {
 		return $menu;
 	}
 	
-	private function getMenuSubitems($tables)
+	/**
+	 * Returns the items for given module
+	 *
+	 * @return array
+	 */
+	private function getItem($module = array())
+	{
+		// add missing fields defaults
+		$module = array_merge($module, [
+			'table'    => '',
+			'active'   => false,
+			'url'      => '',
+			'subitems' => []
+		]);
+		
+		// check for tables entry
+		if ( !empty($module['tables']) )
+		{
+			$tables = $module['tables'];
+			$table  = reset($module['tables']);
+			
+			// load config for this table
+			$config = Config::table($table);
+			
+			$module['table']    = $table;
+			$module['active']   = in_array(Uri::segment(2), $tables);
+			$module['url']      = $this->getItemUrl($table, $config->isSingleRecord());
+			$module['subitems'] = $this->getMenuSubitems($tables);
+		}
+		
+		return $module;
+	}
+	
+	/**
+	 * Returns the submenu items for given tables 
+	 *
+	 * @param array $tables
+	 * @return array
+	 */
+	private function getMenuSubitems($tables = array())
 	{
 		$subitems = array();
 		
@@ -46,6 +94,26 @@ class Menu {
 		}
 		
 		return $subitems;		
+	}
+	
+	/**
+	 * Returns the item URL
+	 *
+	 * @param string $table
+	 * @param bool $single_record Flag indicating if the link should go directly to the first record
+	 * 
+	 * @return str
+	 */
+	private function getItemUrl($table = '', $single_record = false)
+	{
+		// if flag is set, return the link to edit screen directly
+		if ( $single_record )
+		{
+			return url('content/edit/'. $table. '/1');
+		}
+		
+		// return url to list view
+		return url('content/index/'. $table);
 	}
 	
 	/**
@@ -106,54 +174,5 @@ class Menu {
 		}
 			
 		return $sub;
-	}
-	
-	/**
-	 * Returns the item URL
-	 *
-	 * @param string $table
-	 * @param bool $single_record Flag indicating if the link should go directly to the first record
-	 * 
-	 * @return str
-	 */
-	private function getItemUrl($table = '', $single_record = false)
-	{
-		// if flag is set, return the link to edit screen directly
-		if ( $single_record )
-		{
-			return url('content/edit/'. $table. '/1');
-		}
-		
-		// return url to list view
-		return url('content/index/'. $table);
-	}
-	
-	private function getItem($module = array())
-	{
-		// add missing fields defaults
-		$module = array_merge($module, [
-			'table'    => '',
-			'active'   => false,
-			'url'      => '',
-			'subitems' => []
-		]);
-		
-		// check for tables entry
-		if ( isset($module['tables']) && $module['tables'] )
-		{
-			$tables = $module['tables'];
-			$table = reset($module['tables']);
-			
-			// load config for this table
-			$config = Config::table($table);
-			
-			$module['table']    = $table;
-			$module['active']   = in_array(Uri::segment(2), $tables);
-			$module['url']      = $this->getItemUrl($table, $config->isSingleRecord());
-			$module['subitems'] = $this->getMenuSubitems($tables);
-		}
-		
-		return $module;
-	}
-	
+	}	
 }

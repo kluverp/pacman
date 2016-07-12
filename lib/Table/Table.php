@@ -1,5 +1,9 @@
 <?php
 
+namespace Pacman\lib\Table;
+
+use Pacman\lib\DB\DB;
+
 class Table
 {
 	/**

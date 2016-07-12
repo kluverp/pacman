@@ -1,9 +1,17 @@
 <?php
 
-require_once(LIB_PATH . 'Table.php');
-require_once(LIB_PATH . 'Form/Form.php');
-require_once(LIB_PATH . 'Breadcrumb.php');
-require_once(CONTROLLER_PATH . 'BaseController.php');
+namespace Pacman\app\controllers;
+
+use Pacman\app\controllers\BaseController;
+use Pacman\lib\Uri\Uri;
+use Pacman\lib\Config\Config;
+use Pacman\lib\Table\Table;
+use Pacman\lib\Breadcrumb\Breadcrumb;
+
+//require_once(LIB_PATH . 'Table.php');
+//require_once(LIB_PATH . 'Form/Form.php');
+//require_once(LIB_PATH . 'Breadcrumb.php');
+//require_once(CONTROLLER_PATH . 'BaseController.php');
 
 class ContentController extends BaseController
 {

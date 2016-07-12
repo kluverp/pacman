@@ -1,6 +1,8 @@
 <?php
 
-final class Crypt extends Singleton
+namespace Pacman\lib\Crypt;
+
+final class Crypt
 {
 	/**
 	 * Encrypt the string

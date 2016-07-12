@@ -1,6 +1,8 @@
 <?php
 
-require_once(APP_PATH . 'controllers/BaseController.php');
+namespace Pacman\app\controllers;
+
+use Pacman\app\controllers\BaseController;
 
 /**
  * Dashboard page

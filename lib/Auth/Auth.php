@@ -4,15 +4,21 @@ namespace Pacman\lib\Auth;
 
 use Pacman\lib\Singleton;
 use Pacman\lib\DB\DB;
+use Pacman\lib\Crypt\Crypt;
 
 class Auth extends Singleton
 {
+	/**
+	 * The user record
+	 * @var array
+	 */
 	private static $user = null;
 	
-	private static $table = 'cms_users';
-	private static $usernameCol = 'email';
-	private static $passwordCol = 'password';
-	
+	/**
+	 * Retrieve the user record if set after successful login
+	 *
+	 * @return mixed
+	 */
 	public static function user()
 	{
 		// check if user is found
@@ -24,10 +30,17 @@ class Auth extends Singleton
 		return false;
 	}
 	
+	/**
+	 * Attempt to login the user
+	 *
+	 * @param string username
+	 * @param string password
+	 * @return mixed
+	 */
 	public static function attempt($username = '', $password = '')
 	{					
 		// get a valid user record
-		if ( ! $row = DB::fetch('SELECT * FROM '. AUTH_TABLE .' WHERE '.AUTH_USERNAME_COL.' = ? AND '.AUTH_PASSWORD_COL.' = ? LIMIT 1', array($username, sha1($password))) )
+		if ( ! $row = DB::fetch('SELECT * FROM `'. AUTH_TABLE .'` WHERE `'.AUTH_USERNAME_COL.'` = ? AND `'.AUTH_PASSWORD_COL.'` = ? LIMIT 1', array($username, sha1($password))) )
 		{
 			return self::$user = false;
 		}
@@ -40,6 +53,11 @@ class Auth extends Singleton
 		return self::$user = $row[0];
 	}
 	
+	/**
+	 * Protect the current path
+	 *
+	 * @return mixed
+	 */
 	public static function protect()
 	{
 		// get email + user from cookie
@@ -63,12 +81,22 @@ class Auth extends Singleton
 		return true;
 	}
 	
+	/**
+	 * redirect the user to login screen
+	 *
+	 * @return void
+	 */
 	public static function toLogin()
 	{
 		redirect('login', 301);
 		exit;
 	}
 	
+	/**
+	 * Logout the user by destroying the session
+	 *
+	 * @return void
+	 */
 	public static function logout()
 	{
 		// destroy session data

@@ -3,7 +3,7 @@
 namespace Pacman\lib;
 
 use Pacman\lib\View\View;
-use Pacman\lib\Menu;
+use Pacman\lib\Menu\Menu;
 
 class Controller
 {

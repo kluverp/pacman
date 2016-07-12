@@ -1,5 +1,7 @@
 <?php
 
+namespace Pacman\lib\Breadcrumb;
+
 class Breadcrumb
 {
 	/**

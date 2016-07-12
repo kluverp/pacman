@@ -12,6 +12,7 @@ use Pacman\lib\Auth\Auth;
  */
 class BaseController extends Controller
 {
+
 	protected $breadcrumb = null;
 	
 	/**

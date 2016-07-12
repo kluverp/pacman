@@ -1,30 +1,23 @@
 <?php
 
-require_once('TableConfig.php');
+namespace Pacman\lib\Config;
 
-class Config
+use Pacman\lib\Singleton;
+use Pacman\lib\Config\TableConfig;
+
+class Config extends Singleton
 {
-    // object instance
-    private static $instance = null;
-	
+	/**
+	 * The tables array
+	 * @var array
+	 */
 	private $tables = false;
+	
+	/**
+	 * The config array
+	 * @var array
+	 */
 	private $config = false;
-
-    private function __clone() {}
-
-	public function __construct()
-	{
-	}
-	
-	
-	public static function getInstance()
-	{
-        if (!self::$instance instanceof self)
-		{
-            self::$instance = new self();
-        }
-        return self::$instance;
-    }
 	
 	/**
 	 * Returns the table configuration
@@ -57,15 +50,23 @@ class Config
 		throw new Exception('Missing table configuration for: "'. $file .'"');
 	}
 
+	/**
+	 * Returns the config for given filename
+	 *
+	 * @param string $filename
+	 * @return array
+	 */
 	public static function get($filename = '')
 	{
 		$instance = self::getInstance();
 		
+		// check if we already cached this config
 		if ( isset($instance->config[$filename]) )
 		{
 			return $instance->config[$filename];
 		}
 		
+		// get filepath
 		$file = CONFIG_PATH . $filename . '.php';
 		
 		if ( is_file($file) )
