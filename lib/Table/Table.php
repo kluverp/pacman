@@ -3,6 +3,7 @@
 namespace Pacman\lib\Table;
 
 use Pacman\lib\DB\DB;
+use Pacman\lib\Table\Renderer;
 
 class Table
 {
@@ -33,7 +34,12 @@ class Table
 	 */
 	private $order = 'ASC';
 	
-	//private $page = null;
+	/**
+	 * The renderer obj
+	 *
+	 * @var string
+	 */	
+	private $renderer = null;
 
 	/**
 	 * Class constructor
@@ -48,6 +54,9 @@ class Table
 		
 		// set data
 		$this->setData($data);
+		
+		// create renderer instance
+		$this->renderer = new Renderer();
 	}
 	
 	/**
@@ -252,83 +261,5 @@ class Table
 	public function getDescription()
 	{
 		return $this->config->getDescription();
-	}
-			
-	/*---------------- renderers -----------------*/
-	
-	/**
-	 * Renders a Column value
-	 *
-	 * @return string
-	 */
-	private function renderer($value = '', $renderer = '')
-	{
-		// if renderer is a string
-		if ( is_string($renderer) && $renderer )
-		{
-			// form the function name
-			$fname = explode('|', $renderer);
-			$options = isset($fname[1]) ? $fname[1] : false;
-					
-			$renderFunction = $fname[0] . 'Renderer';
-			
-			// check if the function exists and return its value
-			if ( method_exists($this, $renderFunction) )
-			{
-				return $this->{$renderFunction}($value, $options);
-			}
-		}
-		
-		// if renderer is a function (Closure)
-		if ( is_callable($renderer) )
-		{
-			return $renderer($value);
-		}
-		
-		return $value;
-	}
-	
-	/**
-	 * Renders a Boolean value as yes/no
-	 */
-	private function boolRenderer($value = '')
-	{
-		return '<span class="rndrr-active-'. ($value ? 'yes' : 'no') .'">'. ($value ? 'Ja' : 'Nee') .'</span>';
-	}
-	
-	/**
-	 * Renders a date value to the given Dateformat
-	 *
-	 * @return string
-	 */
-	private function dateRenderer($value = '', $format = '%d-%m-Y')
-	{
-		return strftime($format, strtotime($value));
-	}
-	
-	/**
-	 * Show a piece of text of given length. Adds ... to the string if it's longer than given length
-	 * 
-	 * @return string
-	 */
-	private function ellipsisRenderer($value = '', $limit = 50)
-	{
-		// strip off spaces and HTML
-		$str = trim(strip_tags($value));
-		
-		// add ellipsis dots if str is longer than given length
-		$str = ($limit && strlen($str) > $limit) ? substr($str, 0, $limit) . '...' : $str;
-				
-		return $str;
-	}
-	
-	/**
-	 * Renders text without HTML
-	 
-	 * @return string
-	 */
-	private function textRenderer($value = '')
-	{
-		return trim(strip_tags($value));
 	}
 }
