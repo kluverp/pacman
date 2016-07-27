@@ -1,5 +1,9 @@
 <?php
 
+namespace Pacman\lib\Input;
+
+use Pacman\lib\Singleton;
+
 class Input extends Singleton
 {
 	/**
@@ -37,6 +41,6 @@ class Input extends Singleton
 	
 	private static function clean($value = '')
 	{
-		
+		return $value;
 	}
 }
