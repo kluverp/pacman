@@ -3,6 +3,9 @@
 namespace Pacman\lib;
 
 use Pacman\lib\DB\DB;
+use Pacman\lib\Input\Input;
+use Pacman\lib\Uri\Uri;
+use Pacman\lib\Session\Session;
 
 class App
 {
@@ -51,7 +54,11 @@ class App
 		// create new objects
 		$this->lib('router', new \Pacman\lib\Router\Router());
 		$this->lib('translator', new \Pacman\lib\Translator\Translator());
-		//$this->lib('input', Input::getInstance());
+		$this->lib('input', Input::getInstance());
+		$this->lib('session', Session::getInstance());
+		
+		// set old input
+		$this->lib('input')->setOldInput();
 		
 		// set database connection
 		DB::setInstance('default', MYSQL_HOST, MYSQL_SCHEMA, MYSQL_USERNAME, MYSQL_PASSWORD);

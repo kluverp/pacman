@@ -5,9 +5,15 @@
 			<fieldset>
 				<legend><?php echo trans('app.login.legend'); ?></legend>
 				
-				<div class="field">
+				<?php if ( session()->pull('auth_incorrect') ) { ?>
+				<div class="message">
+					<?php e(trans('app.login.incorrect')); ?>
+				</div>
+				<?php } ?>
+								
+				<div class="field <?php /*echo $errors.has('email') ? ' error' : '';*/ ?>">
 					<label for="email"><?php echo trans('app.login.email'); ?></label>
-					<input type="email" id="email" name="email" value="" maxlength="255" />
+					<input type="email" id="email" name="email" value="<?php e(old('email')); ?>" maxlength="255" />
 				</div>
 				
 				<div class="field">

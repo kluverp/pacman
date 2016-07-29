@@ -8,14 +8,7 @@ namespace Pacman\lib;
  * Used by all other Singletons as a Base Class
  */
 class Singleton
-{
-    /**
-	 * The reference to *Singleton* instance of this class
-	 *
-     * @var Singleton
-     */
-    protected static $instance = null;
-    
+{   
     /**
      * Returns the *Singleton* instance of this class.
      *

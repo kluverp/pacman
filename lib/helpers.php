@@ -107,20 +107,38 @@ if ( ! function_exists('view'))
 }
 
 /**
- * Get a variable from GET, or POST array
+ * Get a variable from GET, POST or COOKIE array
  *
+ * @param string $var
+ * @param mixed $default
+ *
+ * @return mixed
  */
 if ( ! function_exists('input') )
 {
 	function input($var = '', $default = false)
 	{
-		if ( isset($_GET[$var]) && $_GET[$var] )
+		if ( !empty($_REQUEST[$var]) )
 		{
-			return $_GET[$var];
-		}
-		elseif ( isset($_POST[$var]) && $_POST[$var])
+			return $_REQUEST[$var];
+		}		
+		return $default;
+	}
+}
+
+/**
+ * Returns old input
+ *
+ */
+if ( ! function_exists('old') )
+{
+	function old($var = '', $default = false)
+	{
+		global $app;
+		
+		if ( $oldInput = $app->lib('input')->getOldInput($var) )
 		{
-			return $_POST[$var];
+			return $oldInput;
 		}
 		
 		return $default;
@@ -168,6 +186,20 @@ if (! function_exists('trans'))
 				
 		return $app->lib('translator')->translate($key, $locale);
     }
+}
+
+/**
+ * Returns the session object
+ * 
+ */
+if ( !function_exists('session') )
+{
+	function session()
+	{
+		global $app;
+		
+		return $app->lib('session');
+	}
 }
 
 /**

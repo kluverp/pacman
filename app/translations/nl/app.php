@@ -10,6 +10,7 @@ return [
 		'submit'             => "Log in",
 		'forgotten'          => "Wachtwoord vergeten",
 		'back'               => "Terug",
+		'incorrect'          => "De gegevens zijn onjuist",
 		'foobar' => [
 			'test' => 'yes'
 		]

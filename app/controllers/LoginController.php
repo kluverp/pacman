@@ -3,6 +3,8 @@
 namespace Pacman\app\controllers;
 
 use Pacman\lib\Auth\Auth;
+use Pacman\lib\Input\Input;
+use Pacman\lib\Session\Session;
 
 /**
  * Login Controller
@@ -38,10 +40,14 @@ class LoginController extends BaseController
 	 */
 	public function postIndex()
 	{
+		// in case of valid authentication, send user to dashboard
 		if ( Auth::attempt(input('email'), input('password')) )
 		{
 			return redirect('dashboard');
 		}
+		
+		// set session var
+		Session::set('auth_incorrect', true);
 		
 		return Auth::toLogin();
 	}

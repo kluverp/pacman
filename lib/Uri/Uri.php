@@ -6,6 +6,13 @@ use Pacman\lib\Singleton;
 
 class Uri extends Singleton
 {
+    /**
+	 * The reference to *Singleton* instance of this class
+	 *
+     * @var Singleton
+     */
+    protected static $instance = null;
+	
 	/**
 	 * The URI segments array
 	 * @var array
@@ -61,7 +68,7 @@ class Uri extends Singleton
 	 */
 	public static function segments()
 	{
-		return self::getInstance()->segments;
+		return static::getInstance()->segments;
 	}
 
 	/**
@@ -72,7 +79,7 @@ class Uri extends Singleton
 	public static function segment($n = 0)
 	{
 		// get singleton
-		$instance = self::getInstance();
+		$instance = static::getInstance();
 
 		// return segment if it exists, false otherwise
 		return isset($instance->segments[$n]) ? $instance->segments[$n] : false;
