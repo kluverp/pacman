@@ -8,6 +8,22 @@ use Pacman\lib\Str\Str;
 class Router 
 {	
 	/**
+	 * The uri segments
+	 *
+	 * @var array
+	 */
+	private $uriSegments = [];
+	
+	/**
+	 * Class Constructor
+	 *
+	 */
+	public function __construct(Uri $uri)
+	{
+		$this->uri = $uri;
+	}
+	
+	/**
 	 * Returns the controller instance
 	 * 
 	 * @return object
@@ -15,7 +31,7 @@ class Router
 	public function getController()
 	{
 		// check for controller name, or default to Base
-		if ( ! $controllerName = ucfirst(Uri::segment(0)) )
+		if ( ! $controllerName = ucfirst($this->uri->segment(0)) )
 		{
 			$controllerName = 'Base';
 		}
@@ -71,9 +87,9 @@ class Router
 		$prefix = 'get';
 		
 		// if a method is found overwrite default
-		if ( Uri::segment(1) !== false) 
+		if ( Uri::segment(1) !== false)
 		{
-			$method = strtolower(Str::ascii(Uri::segment(1)));
+			$method = strtolower(Str::ascii($this->uri->segment(1)));
 		}
 
 		// prefix each controller function with the request method

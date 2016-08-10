@@ -1,6 +1,8 @@
 <?php
 
-require_once(ROOT_PATH . 'lib/Form/FormFieldFactory.php');
+namespace Pacman\lib\Form;
+
+use Pacman\lib\Form\FormFieldFactory;
 
 class Form
 {

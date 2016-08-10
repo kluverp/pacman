@@ -10,22 +10,16 @@ use Pacman\lib\Session\Session;
 class App
 {
 	/**
-	 * The router instance
+	 * The libraries container
+	 *
+	 * @var array
 	 */
-	private $router = null;
-	
-	/**
-	 * The translator instance
-	 */
-	private $translator = null;
-	
-	/**
-	 * The input instance
-	 */
-	private $input = null;
+	private $libraries = [];
 	
 	/**
 	 * Application start time
+	 *
+	 * @var int
 	 */
 	private $startTime = null;
 	
@@ -52,7 +46,8 @@ class App
 	public function init()
 	{
 		// create new objects
-		$this->lib('router', new \Pacman\lib\Router\Router());
+		$this->lib('uri', new Uri(FC_PATH));
+		$this->lib('router', new \Pacman\lib\Router\Router(Uri::getInstance()));
 		$this->lib('translator', new \Pacman\lib\Translator\Translator());
 		$this->lib('input', Input::getInstance());
 		$this->lib('session', Session::getInstance());
@@ -114,8 +109,14 @@ class App
 			$this->stats();
 		}
 		
+		return true;
 	}
 	
+	/**
+	 * Prints statistics to screen
+	 *
+	 * @return string
+	 */
 	private function stats()
 	{
 		$totalTime = round((microtime(true) - $this->startTime), 2);

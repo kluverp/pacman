@@ -8,7 +8,7 @@ namespace Pacman\lib\Table;
  * For use in the table class to make up the overview columns
  *
  */
-class Renderer()
+class Renderer
 {
 	/**
 	 * Renders a Column value

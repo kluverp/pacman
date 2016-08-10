@@ -20,6 +20,11 @@ class Config extends Singleton
 	private $config = false;
 	
 	/**
+	 * Instance
+	 */
+	protected static $instance = null;
+	
+	/**
 	 * Returns the table configuration
 	 *
 	 * @return array

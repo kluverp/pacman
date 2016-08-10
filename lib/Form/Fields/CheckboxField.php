@@ -1,5 +1,7 @@
 <?php
 
+namespace Pacman\lib\Form\Fields;
+
 class CheckboxField extends SelectField
 {
 	/**

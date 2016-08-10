@@ -1,6 +1,8 @@
 <?php
 
-require_once(ROOT_PATH . 'lib/Form/Field.php');
+namespace Pacman\lib\Form\Fields;
+
+use Pacman\lib\Form\Field;
 
 /**
  * Shows to inputs: lat and long and a marker map with the given coordintaes.

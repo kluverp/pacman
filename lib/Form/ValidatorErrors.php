@@ -1,6 +1,7 @@
 <?php
 
-class ValidatorErrors
+class Errors
 {
+	
 	public function all()
 }

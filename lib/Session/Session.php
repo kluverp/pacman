@@ -55,6 +55,16 @@ class Session extends Singleton
 	}
 	
 	/**
+	 * Returns all session variables
+	 *
+	 * @return array
+	 */
+	public static function all()
+	{
+		return static::getInstance()->getAll();
+	}
+	
+	/**
 	 * Get a session variable and removes it
 	 *
 	 * @param string $key
@@ -138,5 +148,23 @@ class Session extends Singleton
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * Returns all session data if set. 
+	 * Otherwise creates it and returns it.
+	 *
+	 * @return array
+	 */
+	public function getAll()
+	{
+		// check if session data is set
+		if (isset($_SESSION[$this->sessionKey]))
+		{
+			return $_SESSION[$this->sessionKey];
+		}
+		
+		// init session data and return
+		return $_SESSION[$this->sessionKey] = [];
 	}
 }

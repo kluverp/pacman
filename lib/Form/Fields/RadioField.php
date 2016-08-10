@@ -1,5 +1,11 @@
 <?php
 
+namespace Pacman\lib\Form\Fields;
+
+/**
+ * Outputs radio fields
+ *
+ */
 class RadioField extends SelectField
 {
 	/**

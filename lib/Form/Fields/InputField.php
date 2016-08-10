@@ -1,7 +1,13 @@
 <?php
 
-require_once(ROOT_PATH . 'lib/Form/Field.php');
+namespace Pacman\lib\Form\Fields;
 
+use Pacman\lib\Form\Field;
+
+/**
+ * Outputs input fields
+ *
+ */
 class InputField extends Field
 {
 	/**

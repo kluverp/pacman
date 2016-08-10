@@ -1,7 +1,14 @@
 <?php
 
-require_once(ROOT_PATH . 'lib/Form/Field.php');
+namespace Pacman\lib\Form\Fields;
 
+use Pacman\lib\Form\Field;
+
+/**
+ * Heading Field
+ *
+ * Prints a heading <h2> between the form fields
+ */
 class HeadingField extends Field
 {
 	/**

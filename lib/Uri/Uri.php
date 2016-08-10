@@ -27,6 +27,13 @@ class Uri extends Singleton
 	private $FC_PATH = '';
 	
 	/**
+	 * The parsed URL
+	 *
+	 * @var string
+	 */
+	private $parsedUrl = [];
+	
+	/**
 	 * Class constructor
 	 * 
 	 * @param $FC_PATH The absolute path to the Front-Controller file. This so we can
@@ -37,6 +44,9 @@ class Uri extends Singleton
 		// set Front-Controller path
 		$this->setFC_PATH(FC_PATH);
 
+		// parse url and set var
+		$this->parsedUrl = parse_url($_SERVER['REQUEST_URI']);
+		
 		// create the uri segments array
 		$this->setSegments();
 	}
@@ -50,9 +60,9 @@ class Uri extends Singleton
 	{
 		// set documentRoot
 		$documentRoot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
-		
+				
 		// create path relative to front-controller, url decode to handle spaces and stuff
-		$fcFullPath  = rtrim($_SERVER['DOCUMENT_ROOT'], '/') . urldecode($_SERVER['REQUEST_URI']);
+		$fcFullPath  = rtrim($_SERVER['DOCUMENT_ROOT'], '/') . urldecode($this->parsedUrl['path']);
 
 		// replace the system path with empty string, trim first "/"
 		$segmentStr = ltrim(str_replace($this->FC_PATH, '', $fcFullPath), '/');

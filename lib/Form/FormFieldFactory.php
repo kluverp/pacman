@@ -1,15 +1,16 @@
 <?php
-require_once(ROOT_PATH . 'lib/Form/Fields/SelectField.php');
-require_once(ROOT_PATH . 'lib/Form/Fields/CheckboxField.php');
-require_once(ROOT_PATH . 'lib/Form/Fields/EditorField.php');
-require_once(ROOT_PATH . 'lib/Form/Fields/InputField.php');
-require_once(ROOT_PATH . 'lib/Form/Fields/LatLngField.php');
-require_once(ROOT_PATH . 'lib/Form/Fields/RadioField.php');
-require_once(ROOT_PATH . 'lib/Form/Fields/SlugField.php');
-require_once(ROOT_PATH . 'lib/Form/Fields/TextareaField.php');
-require_once(ROOT_PATH . 'lib/Form/Fields/HeadingField.php');
-require_once(ROOT_PATH . 'lib/Form/Fields/HiddenField.php');
+namespace Pacman\lib\Form;
 
+use Pacman\lib\Form\Fields\SelectField;
+use Pacman\lib\Form\Fields\CheckboxField;
+use Pacman\lib\Form\Fields\EditorField;
+use Pacman\lib\Form\Fields\InputField;
+use Pacman\lib\Form\Fields\LatLngField;
+use Pacman\lib\Form\Fields\RadioField;
+use Pacman\lib\Form\Fields\SlugField;
+use Pacman\lib\Form\Fields\TextareaField;
+use Pacman\lib\Form\Fields\HeadingField;
+use Pacman\lib\Form\Fields\HiddenField;
 
 class FormFieldFactory
 {
@@ -52,13 +53,13 @@ class FormFieldFactory
 				$class = ucfirst($fieldType);
 		}
 		
-		// add the 'Field' suffix
-		$class .= 'Field';
-				
+		// create new classname
+		$class = __NAMESPACE__ . '\Fields\\'. $class . 'Field';
+			
 		// check if the class exists
         if (!class_exists($class))
 		{
-            throw new Exception('FormField class "'. $class .'" does not exist!');
+            throw new \Exception('FormField class "'. $class .'" does not exist!');
         }
 				
         return new $class($fieldname, $config, $value);

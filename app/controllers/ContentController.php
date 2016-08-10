@@ -7,11 +7,10 @@ use Pacman\lib\Uri\Uri;
 use Pacman\lib\Config\Config;
 use Pacman\lib\Table\Table;
 use Pacman\lib\Breadcrumb\Breadcrumb;
+use Pacman\lib\DB\DB;
+use Pacman\lib\Form\Form;
+use Pacman\lib\Input\Input;
 
-//require_once(LIB_PATH . 'Table.php');
-//require_once(LIB_PATH . 'Form/Form.php');
-//require_once(LIB_PATH . 'Breadcrumb.php');
-//require_once(CONTROLLER_PATH . 'BaseController.php');
 
 class ContentController extends BaseController
 {
@@ -179,7 +178,7 @@ class ContentController extends BaseController
 		// if not given, default to current action
 		$action = $action ? $action : $this->action;
 		
-		return 'content/'. $action .'/'. $this->table .'/'. $this->recordId;
+		return url('content/'. $action .'/'. $this->table .'/'. $this->recordId);
 	}
 	
 	public function getBreadcrumbs()
@@ -188,6 +187,5 @@ class ContentController extends BaseController
 			
 		return $b->getTrail();
 	}
-
 
 }

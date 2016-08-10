@@ -165,7 +165,7 @@ class Table
 		{
 			if ( array_key_exists($col, $row) )
 			{
-				$str .= sprintf('<td>%s</td>', $this->renderer($row[$col], $renderer));
+				$str .= sprintf('<td>%s</td>', $this->renderer->render($row[$col], $renderer));
 			}
 		}
 		

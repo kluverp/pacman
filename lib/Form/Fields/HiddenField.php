@@ -1,7 +1,12 @@
 <?php
 
-require_once(ROOT_PATH . 'lib/Form/Field.php');
+namespace Pacman\lib\Form\Fields;
 
+use Pacman\lib\Form\Field;
+
+/**
+ * Hidden form input field
+ */
 class HiddenField extends Field
 {
 	/**

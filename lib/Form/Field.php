@@ -1,5 +1,7 @@
 <?php
 
+namespace Pacman\lib\Form;
+
 abstract class Field
 {
 	protected $type        = 'text';

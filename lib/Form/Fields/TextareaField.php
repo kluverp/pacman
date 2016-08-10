@@ -1,6 +1,8 @@
 <?php
 
-require_once(ROOT_PATH . 'lib/Form/Field.php');
+namespace Pacman\lib\Form\Fields;
+
+use Pacman\lib\Form\Field;
 
 class TextareaField extends Field
 {	
@@ -25,7 +27,7 @@ class TextareaField extends Field
 	{
 		// built the attribute string
 		$attsStr = $this->getAtts(array(
-			'id'          => $this->getName(),
+			'id'          => $this->getId(),
 			'name'        => $this->getName(),
 			'cols'        => $this->getCols(),
 			'rows'        => $this->getRows(),
