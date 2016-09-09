@@ -6,10 +6,10 @@ session_start();
 // paths
 define('FC_PATH', dirname(str_replace('\\', '/', __DIR__)));
 define('ROOT_PATH', realpath(__DIR__ .'/../') . '\\');
-define('LIB_PATH', ROOT_PATH .'lib/');
-define('APP_PATH', ROOT_PATH .'app/');
-define('CONFIG_PATH', APP_PATH . 'config/');
-define('CONTROLLER_PATH', APP_PATH .'controllers/');
+define('LIB_PATH', ROOT_PATH .'lib' . DIRECTORY_SEPARATOR);
+define('APP_PATH', ROOT_PATH .'app' . DIRECTORY_SEPARATOR);
+define('CONFIG_PATH', APP_PATH . 'config' . DIRECTORY_SEPARATOR);
+define('CONTROLLER_PATH', APP_PATH .'controllers' . DIRECTORY_SEPARATOR);
 
 // determine the protocol used (we check for 'HTTPS' since 'REQUEST_SCHEME' is unreliable
 $protocol = isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';

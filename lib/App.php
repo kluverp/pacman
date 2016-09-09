@@ -6,6 +6,7 @@ use Pacman\lib\DB\DB;
 use Pacman\lib\Input\Input;
 use Pacman\lib\Uri\Uri;
 use Pacman\lib\Session\Session;
+use Pacman\lib\Router\Router;
 
 class App
 {
@@ -47,7 +48,7 @@ class App
 	{
 		// create new objects
 		$this->lib('uri', new Uri(FC_PATH));
-		$this->lib('router', new \Pacman\lib\Router\Router(Uri::getInstance()));
+		$this->lib('router', new Router(Uri::getInstance()));
 		$this->lib('translator', new \Pacman\lib\Translator\Translator());
 		$this->lib('input', Input::getInstance());
 		$this->lib('session', Session::getInstance());

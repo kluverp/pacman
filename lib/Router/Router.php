@@ -2,7 +2,6 @@
 
 namespace Pacman\lib\Router;
 
-use Pacman\lib\Uri\Uri;
 use Pacman\lib\Str\Str;
 
 class Router 
@@ -15,41 +14,26 @@ class Router
 	private $uriSegments = [];
 	
 	/**
-	 * Class Constructor
+	 * The URI class 
 	 *
+	 * @var obj
 	 */
-	public function __construct(Uri $uri)
-	{
-		$this->uri = $uri;
-	}
+	private $uri = null;
 	
 	/**
-	 * Returns the controller instance
-	 * 
-	 * @return object
+	 * The controller namespace too look in 
+	 *
+	 * @var const
 	 */
-	public function getController()
+	const CONTROLLER_NS = '\Pacman\app\controllers\\';
+	
+	/**
+	 * Class Constructor
+	 */
+	public function __construct(\Pacman\lib\Uri\Uri $uri)
 	{
-		// check for controller name, or default to Base
-		if ( ! $controllerName = ucfirst($this->uri->segment(0)) )
-		{
-			$controllerName = 'Base';
-		}
-		
-		$controllerName = '\Pacman\app\controllers\\' . $controllerName;
-
-		// get path to controller class
-		$controllerName .= 'Controller';
-		$controllerPath = CONTROLLER_PATH . $controllerName . '.php';
-
-		// check if the controller file exists
-		/*if ( ! is_file($controllerPath) )
-		{
-			throw new \Exception('Controller "'. $controllerName .'" not found', 200);
-		}*/
-
-		// return new instance of controller
-		return new $controllerName();
+		// set uri class
+		$this->uri = $uri;
 	}
 	
 	/**
@@ -77,17 +61,48 @@ class Router
 	}
 	
 	/**
+	 * Returns the controller instance
+	 * 
+	 * @return object
+	 */
+	private function getController()
+	{
+		// check for controller name, or default to Base
+		if ( ! $controllerName = ucfirst($this->uri->segment(0)) )
+		{
+			$controllerName = 'Base';
+		}
+		
+		// get path to controller class
+		$controllerName = $controllerName . 'Controller';
+		$controllerPath = CONTROLLER_PATH . $controllerName . '.php';
+
+		// check if the controller file exists
+		if ( ! is_file($controllerPath) )
+		{
+			throw new \Exception('Controller "'. $controllerName .'" not found', 200);
+		}
+		
+		// create full qualified path to controller
+		$controller = self::CONTROLLER_NS . $controllerName;
+
+		// return new instance of controller
+		return new $controller();
+	}
+		
+	/**
 	 * Returnes the first uri segment as method name
 	 *
 	 * @return string
 	 */
-	public function getMethod()
+	private function getMethod()
 	{
+		// init
 		$method = 'index';
 		$prefix = 'get';
 		
 		// if a method is found overwrite default
-		if ( Uri::segment(1) !== false)
+		if ( $this->uri->segment(1) !== false)
 		{
 			$method = strtolower(Str::ascii($this->uri->segment(1)));
 		}

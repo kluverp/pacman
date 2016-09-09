@@ -170,7 +170,7 @@ if ( ! function_exists('redirect') )
 {
 	function redirect($url = '', $statusCode = 302)
 	{
-		header(sprintf('Location: %s', url($url)), true, $statusCode);
+		header(sprintf('Location: %s', $url), true, $statusCode);
 		exit;
 	}
 }
@@ -213,5 +213,13 @@ if ( !function_exists('e') )
 	function e($str = '')
 	{
 		echo $str;
+	}
+}
+
+if ( !function_exists('lib') )
+{
+	function lib($lib = '')
+	{
+		return App::getInstance()->lib($lib);
 	}
 }

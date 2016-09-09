@@ -136,7 +136,7 @@ class ContentController extends BaseController
 			
 			//dd($result);
 		}
-		
+
 		// redirect to edit screen
 		return redirect($this->getActionUrl('edit'));
 	}
@@ -155,7 +155,7 @@ class ContentController extends BaseController
 		}
 			
 		// redirect to index
-		return redirect('content/index/'. $this->table);
+		return redirect($this->getActionUrl('index'));
 	}
 	
 	/**
