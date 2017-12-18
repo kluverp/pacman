@@ -116,7 +116,7 @@ class DB
 			// check for errors
 			$error = $sth->errorInfo();
 
-			throw new Exception('[' . $error[1] . '] ' . $error[2]);
+			throw new \Exception('[' . $error[1] . '] ' . $error[2]);
 		}
 	
 		// return result
@@ -176,7 +176,7 @@ class DB
 		// check for primary key id
 		if ( ! isset($data['id']) )
 		{
-			throw new Exception('Cannot update record without ID!');
+			throw new \Exception('Cannot update record without ID!');
 		}
 		
 		// remove empty values 

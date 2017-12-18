@@ -80,7 +80,7 @@ class Controller
 					
 		// set response code
 		http_response_code($response_code);
-		
+				
 		// load the view
 		$html = View::make(view('_system/_layout.php'), array(
 			'template'    => $this->template,
@@ -92,7 +92,7 @@ class Controller
 			'menu'        => $this->getMenu(),
 			'data'        => $data
 		));
-		
+				
 		echo $html;
 	}
 		

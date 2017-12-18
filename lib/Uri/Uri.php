@@ -40,13 +40,13 @@ class Uri extends Singleton
 	 * built the relative path to the web root.
 	 */
 	public function __construct()
-	{	
+        {		
 		// set Front-Controller path
 		$this->setFC_PATH(FC_PATH);
 
 		// parse url and set var
 		$this->parsedUrl = parse_url($_SERVER['REQUEST_URI']);
-		
+				
 		// create the uri segments array
 		$this->setSegments();
 	}
@@ -60,7 +60,7 @@ class Uri extends Singleton
 	{
 		// set documentRoot
 		$documentRoot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
-				
+
 		// create path relative to front-controller, url decode to handle spaces and stuff
 		$fcFullPath  = rtrim($_SERVER['DOCUMENT_ROOT'], '/') . urldecode($this->parsedUrl['path']);
 

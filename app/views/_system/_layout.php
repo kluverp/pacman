@@ -25,8 +25,15 @@
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
-		<?php include '/../_layouts/' . $layout .'.php'; ?>
+        
+        <?php
+        if(is_file(__DIR__ . "/../_layouts/$layout.php")) {
+            include(__DIR__ . "/../_layouts/$layout.php");
+        } else {
+            throw new Exception('Cannot locate layout!');
+        }
+        
+        ?>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
